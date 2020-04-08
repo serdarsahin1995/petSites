@@ -1,0 +1,12 @@
+<div class="row" id="ss" *ngIf="(admin==true) || (ogrencisleri==true)|| (ogretmen==true)">
+<div class="card" style="width: 18rem;" *ngFor="let obj of dataCourses;let i=index" >
+    <div class="card-body">
+      <h5 class="card-title" id="font">{{obj.email}}</h5>
+      <img src="https://www.freepnglogos.com/uploads/student-png/student-png-algebra-nation-30.png" class="card-img-top" alt="...">
+      <p class="card-text">{{obj.name}}</p>
+      <button (click)="Edit(obj)" class="btn btn-primary"  *ngIf="(admin==true) || (ogrencisleri==true)">Bilgileri Güncelle </button>
+    </div>
+  </div>
+</div>
+
+

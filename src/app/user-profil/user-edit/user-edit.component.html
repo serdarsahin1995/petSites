@@ -1,0 +1,9 @@
+<form [formGroup]="editForm" (ngSubmit)="edit(editForm.value)" *ngIf="(admin==true) || (ogrencisleri==true)">
+    <label>Student Email</label>
+    <p> {{email}}</p>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Student Name</label>
+    <input formControlName="studentName" class="form-control" id="studentName" aria-describedby="emailHelp" placeholder={{name}}>
+    </div>
+    <button type="edit" class="btn btn-primary">Submit </button>
+    </form>

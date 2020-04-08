@@ -1,0 +1,64 @@
+
+<ngb-tabset [justify]="currentJustify">
+  <ngb-tab title="Profil">
+    <ng-template ngbTabContent>
+      <div class="text-center">
+
+        <div id="ss" >
+        <div class="listebox">
+        
+        <div class="card" style="width: 18rem;">
+            <img src="https://pbs.twimg.com/profile_images/606791666251493376/vn1M5fjn.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5>{{userTemp}}</h5>
+            </div>
+            <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
+          </div>
+        </div>
+        </div>
+    </div>
+    
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Gelen</b> Kutusu({{bildirim}})</ng-template>
+    <ng-template ngbTabContent> 
+      <table class="table table-hover"  >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Baslik</th>
+            <th scope="col">Tarih    -    Saat</th>
+            <th scope="col">detay</th>
+          </tr>
+        </thead>
+
+      <tbody>
+        <tr *ngFor="let obj of message;let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{obj.baslik}}</td>
+          <td>{{obj.Tarih}} - {{obj.Time}}</td>
+       
+          <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >View Detail</button> </td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="table table-hover" >
+        <thead>
+          <tr>
+            <th scope="col">Mesaj</th>
+
+          </tr>
+        </thead>
+        <tbody>
+         
+            <td>{{mdetail2}}</td>
+          
+        </tbody>
+      </table>
+    
+    </ng-template>
+  </ngb-tab>
+
+</ngb-tabset>

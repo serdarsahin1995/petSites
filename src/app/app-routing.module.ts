@@ -10,6 +10,8 @@ import {MyProfilComponent} from './user-profil/my-profil/my-profil.component'
 import { RegisterUserComponent} from './authentication/register-user/register-user.component';
 import { PetSitterComponent} from './pet-sitter/pet-sitter.component';
 import {PetsComponent} from './pets/pets.component';
+import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
+import { ResponseRequestComponent } from './response-request/response-request.component';
 
 const routes: Routes = [
 	{ path:'giriş',component:LoginComponent},
@@ -20,6 +22,8 @@ const routes: Routes = [
 	{path : "myProfil",component:MyProfilComponent},
 	{path: "petSitter", component:PetSitterComponent},
 	{path: "pets", component:PetsComponent},
+	{path: "bakıcıol", component:BePetsitterComponent},
+	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent},
 
   {path:"app", component:AppComponent},
 

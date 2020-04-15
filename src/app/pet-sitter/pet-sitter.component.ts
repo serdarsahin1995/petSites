@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/userService/user.service';
 
 @Component({
   selector: 'app-pet-sitter',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pet-sitter.component.css']
 })
 export class PetSitterComponent implements OnInit {
+  petsitters:any;
 
-  constructor() { }
+  constructor(private us:UserService) { }
 
   ngOnInit() {
+    this.us.getAllpetSitters().subscribe(petsitters => this.petsitters = petsitters);
   }
 
 }

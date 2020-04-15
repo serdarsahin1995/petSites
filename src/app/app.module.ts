@@ -17,6 +17,8 @@ import { MyProfilComponent } from './user-profil/my-profil/my-profil.component';
 import { RegisterUserComponent } from './authentication/register-user/register-user.component';
 import { PetSitterComponent } from './pet-sitter/pet-sitter.component';
 import { PetsComponent } from './pets/pets.component';
+import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
+import { ResponseRequestComponent } from './response-request/response-request.component';
 
 
 
@@ -31,6 +33,8 @@ import { PetsComponent } from './pets/pets.component';
     RegisterUserComponent,
     PetSitterComponent,
     PetsComponent,
+    BePetsitterComponent,
+    ResponseRequestComponent,
    
   ],
   imports: [

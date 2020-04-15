@@ -1,1 +1,18 @@
-<p>pet-sitter works!</p>
+<tr *ngFor="let obj of petsitters;let i=index">
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="https://i.pinimg.com/736x/89/91/8f/89918f0be2038fbc50237d349d0e5333.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{obj.name}}</h5>
+      <p class="card-text">{{obj.Bilgi}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{obj.adress}}</li>
+      <li class="list-group-item">Dapibus ac facilisis in</li>
+      <li class="list-group-item">Gecelik : {{obj.gecelik}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Profile Git</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+</tr>

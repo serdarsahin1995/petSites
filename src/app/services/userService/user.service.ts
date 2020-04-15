@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {of as observableOf, Observable} from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {map, switchMap } from 'rxjs/operators'
-import {auth} from 'firebase';
+import {auth, User} from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import {CanActivate, Router} from '@angular/router';
 declare let alertify:any;
@@ -14,6 +14,8 @@ declare let alertify:any;
 export class UserService implements CanActivate {
 temp:any;
 editId:any;
+name:any;
+x:any;
 uid = this.afAuth.authState.pipe(
   map(authState => {
     if(!authState){
@@ -108,6 +110,34 @@ this.afAuth.auth.signOut();
         boolean: true,
   })
 }
-
+getAllpetSitters(){
+  return  this.db.list('/Petsitters').snapshotChanges().pipe(
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+  }
+  bePetsitter(metin,user:firebase.User){
+    this.db.object('/users/' + user.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()
+    this.db.object('/requestBeSitter/' + user.uid + '/'  ).update({
+      bilgi: metin,
+      name: this.name,
+})})
+  }
+  getAllrequest(){
+    return  this.db.list('/requestBeSitter').snapshotChanges().pipe(
+        map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
+    getbilgi(uid){
+      return  this.db.list('/requestBeSitter/'+uid).snapshotChanges().pipe(
+        map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+       
+    }
+    applyBePetsitter(uid,name){
+      this.db.object('/Petsitters/' + uid + '/'  ).update({
+        name: name,
+        hakkında:"Boş",
+        gecelik:"Boş",
+        adress:"Boş"
+  })
+    }
+    
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/userService/user.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Component({
   selector: 'app-be-petsitter',
@@ -9,7 +10,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class BePetsitterComponent implements OnInit {
 
-  constructor(private us:UserService,private afAuth: AngularFireAuth) { }
+  constructor(private us:UserService,private afAuth: AngularFireAuth,private db:AngularFireDatabase) { }
 
   ngOnInit() {
   }

@@ -25,6 +25,15 @@ uid = this.afAuth.authState.pipe(
     }
   })
     );
+    isPetOwn:Observable<boolean>= this.uid.pipe(
+      switchMap(uid=>{
+        if(!uid){
+          return observableOf(false);
+        }else{
+          return this.db.object<boolean>('/petOwn/'+ uid).valueChanges()
+        }
+      })
+    );
 isAdmin:Observable<boolean>= this.uid.pipe(
   switchMap(uid=>{
     if(!uid){
@@ -34,6 +43,7 @@ isAdmin:Observable<boolean>= this.uid.pipe(
     }
   })
 );
+
 editProfil(email,uid){
   this.temp=email;
   this.editId=uid
@@ -56,6 +66,10 @@ this.afAuth.auth.signOut();
   saveUser(user: firebase.User,namee) {
     if (!user) { return; }
     this.db.object('/users/' + user.uid).update({
+      name: namee,
+      email: user.email
+    });
+    this.db.object('/petOwn/' + user.uid).update({
       name: namee,
       email: user.email
     });

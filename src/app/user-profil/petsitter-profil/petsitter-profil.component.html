@@ -1,0 +1,37 @@
+<div class="card">
+  <img src="https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx" alt="Card image cap" style="width:100%">
+  <h1>{{name}}</h1>
+  <p class="title">Hakkında</p>
+  <p>{{hakkinda}}</p>
+  <div style="margin: 24px 0;margin-left: 25px;">
+    <form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr/>
+
+<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp2" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr/>
+  </div>
+
+  <p><button (click)="reservation()" >Rezervasyon</button></p>
+</div>
+
+

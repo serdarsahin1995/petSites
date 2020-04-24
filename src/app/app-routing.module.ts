@@ -12,6 +12,7 @@ import { PetSitterComponent} from './pet-sitter/pet-sitter.component';
 import {PetsComponent} from './pets/pets.component';
 import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
 import { ResponseRequestComponent } from './response-request/response-request.component';
+import { PetsitterProfilComponent } from './user-profil/petsitter-profil/petsitter-profil.component';
 
 const routes: Routes = [
 	{ path:'giriş',component:LoginComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
 	{path: "pets", component:PetsComponent},
 	{path: "bakıcıol", component:BePetsitterComponent},
 	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent},
+	{path: "sitterProfil",component:PetsitterProfilComponent},
 
   {path:"app", component:AppComponent},
 

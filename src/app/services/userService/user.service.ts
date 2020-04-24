@@ -16,6 +16,7 @@ temp:any;
 editId:any;
 name:any;
 x:any;
+getUid:any;
 uid = this.afAuth.authState.pipe(
   map(authState => {
     if(!authState){
@@ -151,6 +152,17 @@ getAllpetSitters(){
         gecelik:"Boş",
         adress:"Boş"
   })
+    }
+    setKey(key){
+      this.getUid = key;
+      console.log(this.getUid)
+    }
+    getpetS(){
+      return  this.getUid
+    }
+    getReservations(uid){
+      return this.db.list('/Petsitters/' +uid+ '/reservations').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
     
 }

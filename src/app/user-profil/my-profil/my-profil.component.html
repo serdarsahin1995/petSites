@@ -13,10 +13,13 @@
               <h5>{{userTemp}}</h5>
             </div>
             <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
+            
           </div>
         </div>
         </div>
     </div>
+
+  
     
     </ng-template>
   </ngb-tab>
@@ -56,6 +59,40 @@
             <td>{{mdetail2}}</td>
           
         </tbody>
+      </table>
+    
+    </ng-template>
+  </ngb-tab>
+
+
+  <ngb-tab>
+    <ng-template ngbTabTitle ><b>Reservasyonlar</b></ng-template>
+    <ng-template ngbTabContent> 
+      <table class="table table-hover"  >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Kimden</th>
+            <th scope="col">Başlangıç   -    Bitiş</th>
+            <th scope="col">Kaç Gece</th>
+            <th scope="col">Eylem</th>
+          </tr>
+        </thead>
+
+      <tbody>
+        <tr *ngFor="let objj of resArray;let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{objj.name}}</td>
+          <td>{{objj.startDate}}--{{objj.endDate}}</td>
+          <td></td>
+          
+       
+          <td><button type="button" class="btn btn-secondary"  >Kabul et</button>-
+          <button type="button" class="btn btn-secondary"  >Reddet</button> </td>
+        </tr>
+          
+        
+      </tbody>
       </table>
     
     </ng-template>

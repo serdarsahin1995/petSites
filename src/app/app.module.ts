@@ -19,6 +19,7 @@ import { PetSitterComponent } from './pet-sitter/pet-sitter.component';
 import { PetsComponent } from './pets/pets.component';
 import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
 import { ResponseRequestComponent } from './response-request/response-request.component';
+import {PetsitterProfilComponent} from './user-profil/petsitter-profil/petsitter-profil.component'
 
 
 
@@ -35,6 +36,7 @@ import { ResponseRequestComponent } from './response-request/response-request.co
     PetsComponent,
     BePetsitterComponent,
     ResponseRequestComponent,
+    PetsitterProfilComponent,
    
   ],
   imports: [

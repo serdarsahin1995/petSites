@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/userService/user.service'
 import {AngularFireAuth} from '@angular/fire/auth';
+import { NgbDate, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-profil',
@@ -16,8 +20,10 @@ mdetail3:any;
 listFalse:Array<any>;
 count = 0;
 bildirim =0;
-  constructor(private us : UserService,private afAuth: AngularFireAuth) { 
-    
+res:any;
+resArray:Array<any>;
+  constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
+ 
   }
 
   ngOnInit() {
@@ -34,12 +40,20 @@ bildirim =0;
       this.count++}this.bildirim=this.count});
       this.listFalse=[]
      this.count=0;}));
+     this.getReservations()
     
   }
   getMesDetail(mId){
     
     this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
     this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
+  }
+
+  getReservations(){
+    this.resArray = []
+     this.afAuth.user.subscribe(user=>this.us.getReservations(user.uid).subscribe(reserv=>{reserv.forEach(c=>{
+       this.resArray.push(c)})}))
+       
   }
 
 }

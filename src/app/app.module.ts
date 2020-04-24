@@ -19,7 +19,10 @@ import { PetSitterComponent } from './pet-sitter/pet-sitter.component';
 import { PetsComponent } from './pets/pets.component';
 import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
 import { ResponseRequestComponent } from './response-request/response-request.component';
-import {PetsitterProfilComponent} from './user-profil/petsitter-profil/petsitter-profil.component'
+import {PetsitterProfilComponent} from './user-profil/petsitter-profil/petsitter-profil.component';
+import { AdvertComponent } from './pets/advert/advert.component';
+import { DetailComponent } from './pets/detail/detail.component';
+import { OwnPetComponent } from './pets/own-pet/own-pet.component'
 
 
 
@@ -37,6 +40,9 @@ import {PetsitterProfilComponent} from './user-profil/petsitter-profil/petsitter
     BePetsitterComponent,
     ResponseRequestComponent,
     PetsitterProfilComponent,
+    AdvertComponent,
+    DetailComponent,
+    OwnPetComponent,
    
   ],
   imports: [

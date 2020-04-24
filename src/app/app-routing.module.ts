@@ -13,6 +13,9 @@ import {PetsComponent} from './pets/pets.component';
 import { BePetsitterComponent } from './be-petsitter/be-petsitter.component';
 import { ResponseRequestComponent } from './response-request/response-request.component';
 import { PetsitterProfilComponent } from './user-profil/petsitter-profil/petsitter-profil.component';
+import { AdvertComponent } from './pets/advert/advert.component';
+import { DetailComponent } from './pets/detail/detail.component';
+import { OwnPetComponent } from './pets/own-pet/own-pet.component';
 
 const routes: Routes = [
 	{ path:'giriş',component:LoginComponent},
@@ -26,8 +29,11 @@ const routes: Routes = [
 	{path: "bakıcıol", component:BePetsitterComponent},
 	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent},
 	{path: "sitterProfil",component:PetsitterProfilComponent},
-
-  {path:"app", component:AppComponent},
+	{path: "advert", component:AdvertComponent},
+	{path: "detail",component:DetailComponent},
+	{path: "OwnAdvert", component:OwnPetComponent},
+	  {path:"app", component:AppComponent},
+	  
 
 
 ];

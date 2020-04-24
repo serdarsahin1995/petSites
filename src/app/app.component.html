@@ -28,7 +28,7 @@
     <a class="p-2 text-muted" routerLink="/petSitter">Hayvan Bakıcıları</a>
     <a class="p-2 text-muted" routerLink="/pets">Hayvanlar</a>
     <a class="p-2 text-muted" routerLink='/bakıcıol' *ngIf="(user.isPetOwn | async)">Bakıcı Ol</a>
-    <a class="p-2 text-muted" href="#">Design</a>
+    <a class="p-2 text-muted" routerLink='/OwnAdvert'>İlanlarım</a>
     <a class="p-2 text-muted" routerLink="/bakıcıolmakisteyenler" *ngIf="(user.isAdmin | async)">istekler</a>
   </nav>
 </div>

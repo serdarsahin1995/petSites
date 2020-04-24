@@ -1,11 +1,31 @@
 
-<tr *ngFor="let obj of requests;let i=index">
+<table class="table table-hover"  >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Kimden</th>
+      <th scope="col">Oku</th>
+      <th scope="col">kabulEt</th>
+      <th scope="col">Reddet</th>
+    </tr>
+  </thead>
+
+<tbody>
+  <tr *ngFor="let obj of requests;let i=index">
     <th scope="row">{{i+1}}</th>
-    <td>-{{obj.name}}</td>
+    <td>{{obj.name}}</td>
+    
+    
+ 
     <td><button type="button" class="btn btn-secondary" (click)="getbilgi(obj.key) ">Oku</button> </td>
     <td><button type="button" class="btn btn-secondary" (click)="bePetsitter(obj.key,obj.name)"  >Kabulet</button> </td>
     <td><button type="button" class="btn btn-secondary" >Reddet</button> </td>
   </tr>
+    
+  
+</tbody>
+</table>
+
  
     <td>{{gBilgi}}</td>
   

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+      <tr *ngFor="let obj of temp;let i=index">
+        <div class="row mb-5">
+          <div class="col-md-4">
+            <div class="card" style="width: 21rem;">
+              <img src="https://i4.hurimg.com/i/hurriyet/75/750x422/5decc27118c7732568fcd357.jpg" class="card-img-top"
+                alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Cinsi: {{obj.Cinsi}}</h5>
+                <p class="card-text">Şehir: {{obj.Sehir}}</p>
+                <a class="btn btn-primary" routerLink='/detail' (click)="us.Edit(obj.key)" >Detaylar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+      </tr>
+      <div class="w-100"></div>
+      <a class="btn btn-primary" routerLink='/advert'>İlan</a>
+    </div>
+  </div>

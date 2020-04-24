@@ -17,6 +17,7 @@ editId:any;
 name:any;
 x:any;
 getUid:any;
+getUid2:any;
 uid = this.afAuth.authState.pipe(
   map(authState => {
     if(!authState){
@@ -129,6 +130,10 @@ getAllpetSitters(){
   return  this.db.list('/Petsitters').snapshotChanges().pipe(
       map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
   }
+  getAllAdverts(){
+    return  this.db.list('/Adverts').snapshotChanges().pipe(
+        map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
   bePetsitter(metin,user:firebase.User){
     this.db.object('/users/' + user.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()
     this.db.object('/requestBeSitter/' + user.uid + '/'  ).update({
@@ -157,11 +162,47 @@ getAllpetSitters(){
       this.getUid = key;
       console.log(this.getUid)
     }
+    Edit(key){
+      this.getUid2 = key;
+      console.log(this.getUid2)
+    }
+    getEditId(){
+      return this.getUid2
+    }
     getpetS(){
+      return  this.getUid
+    }
+    getpetO(){
       return  this.getUid
     }
     getReservations(uid){
       return this.db.list('/Petsitters/' +uid+ '/reservations').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
+    addAdvert(Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi,key){
+      var x =this.db.createPushId();
+      this.db.object('/Adverts/'+x).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+      })
+      this.db.object('/petOwn/'+ key.uid+'/Adverts/'+x).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+      })
+
+    }
+    detail(uid){
+      this.db.object('/Adverts/'+uid)
+
+    }
+    getOwnPet(user: firebase.User){
+      return  this.db.list('/petOwn/' + user.uid + '/Adverts').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
     

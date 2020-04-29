@@ -33,3 +33,33 @@
   button:hover, a:hover {
     opacity: 0.7;
   }
+
+  .item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+.item6 { grid-area: petim; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'menu header header right right right'
+    'petim header header right right right'
+    'footer footer footer footer footer footer';
+  grid-gap: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  
+}
+
+
+.card2 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  text-align: left;
+  font-family: arial;
+}

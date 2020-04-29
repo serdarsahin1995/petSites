@@ -12,6 +12,7 @@
             <div class="card-body">
               <h5>{{userTemp}}</h5>
             </div>
+            <a class="btn btn-primary"   href="editMyProfil" >Profil Güncelle(petsitter için) </a>
             <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
             
           </div>
@@ -74,6 +75,9 @@
             <th scope="col">#</th>
             <th scope="col">Kimden</th>
             <th scope="col">Başlangıç   -    Bitiş</th>
+            <th scope="col">Tür</th>
+            <th scope="col">Cinsiyet</th>
+            <th scope="col">Yaş</th>
             <th scope="col">Kaç Gece</th>
             <th scope="col">Eylem</th>
           </tr>
@@ -84,7 +88,10 @@
           <th scope="row">{{i+1}}</th>
           <td>{{objj.name}}</td>
           <td>{{objj.startDate}}--{{objj.endDate}}</td>
-          <td></td>
+          <td>{{objj.tur}}</td>
+          <td>{{objj.cins}}</td>
+          <td>{{objj.yas}}</td>
+          <td>5</td>
           
        
           <td><button type="button" class="btn btn-secondary"  >Kabul et</button>-

@@ -1,37 +1,90 @@
-<div class="card">
-  <img src="https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx" alt="Card image cap" style="width:100%">
-  <h1>{{name}}</h1>
-  <p class="title">Hakkında</p>
-  <p>{{hakkinda}}</p>
-  <div style="margin: 24px 0;margin-left: 25px;">
-    <form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-      </div>
-    </div>
-  </div>
-</form>
-<hr/>
 
-<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp2" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
-      </div>
-    </div>
-  </div>
-</form>
-<hr/>
-  </div>
+<div class="grid-container">
+  <div class="item1"><div class="card2">
+    <img src="https://www.seyirkafe.com/wp-content/uploads/2017/02/uhjjh.jpg" alt="Card image cap" style="width:100%">
+    <h1>{{name}}'in Evi</h1>
+    <hr/>
+   
+    <p>Mesken Şekli: {{mesken}}</p>
+    <p>Bahçe: {{bahce}}</p>
+    <p>Pet için oda: {{oda}}</p>
+    <p>Başka Pet: {{baskapet}}</p>
+    <p>Sigara içimi: {{sigara}}</p>
+  
+  </div></div>
 
-  <p><button (click)="reservation()" >Rezervasyon</button></p>
+  <div class="item2"><div class="card">
+    <img src="https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx" alt="Card image cap" style="width:100%">
+    <h1>{{name}}</h1>
+    <p>istanbul/çekmeköy</p>
+    <p class="title">Hakkında</p>
+    <p>{{hakkinda}}</p>
+    
+  </div>
 </div>
+<div class="item6"><div class="card">
+  <h1>{{name}}'in Peti</h1>
+  <img src="https://get.pxhere.com/photo/nature-white-home-puppy-dog-animal-cute-pet-portrait-young-small-studio-brown-mammal-black-thoroughbred-dogs-one-background-happy-safety-vertebrate-beautiful-huntaway-dog-breed-meringue-puppies-rottweiler-family-tree-a-little-k-9-dog-like-mammal-carnivoran-868030.jpg" alt="Card image cap" style="width:100%">
+</div>
+</div>
+  <div class="item4"><div class="card2">
+    <h1>Rezervasyon</h1>
+    <div style="margin: 24px 0;margin-left: 25px;">
+      <p class="title">Başlangıç Tarihi</p>
+      <form class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr/>
+  <p class="title">Bitiş Tarihi</p>
+  <form class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp2" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr/>
+    </div>
+    <div>
+    <label for="tur">Petimin Türü:</label>
+    <select #tur>
+      <option value="Köpek">Köpek</option>
+      <option value="Kedi">Kedi</option>
+    </select>
+  </div>
+  <div>
+    <label for="cins">Petimin Cinsiyeti:</label>
+    <select #cins>
+      <option value="Erkek">Erkek</option>
+      <option value="Dişi">Dişi</option>
+    </select>
+  </div>
+  <div>
+    <label for="yas">Petimin Yaşı:</label>
+    <select #yas>
+      <option value="0-1">0-1</option>
+      <option value="2-5">2-5</option>
+      <option value="6-10">6-10</option>
+      <option value="10+">10+</option>
+    </select>
+  </div>
+  
+    <p><button (click)="reservation(tur.value,cins.value,yas.value)" >Rezervasyonda Bulun</button></p>
 
+  </div>
+
+</div>
+</div>
 

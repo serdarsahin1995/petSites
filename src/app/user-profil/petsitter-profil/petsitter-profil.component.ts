@@ -18,6 +18,7 @@ name:any;
 model: NgbDateStruct;
 model2: NgbDateStruct;
 userName:any;
+mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
   constructor(private us:UserService,private db :AngularFireDatabase,private afAuth: AngularFireAuth,private parserFormatter: NgbDateParserFormatter) { }
 
   ngOnInit() {
@@ -25,12 +26,21 @@ userName:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/hakkında").snapshotChanges().subscribe(c=>{this.hakkinda=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
    this.db.object('/users/' + firebase.auth().currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.userName=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/mesken").snapshotChanges().subscribe(c=>{this.mesken=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/bahce").snapshotChanges().subscribe(c=>{this.bahce=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/oda").snapshotChanges().subscribe(c=>{this.oda=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>{this.sigara=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>{this.baskapet=c.payload.val()})
   }
-  reservation(){
+  reservation(tur,cins,yas){
     this.db.object('/Petsitters/'+this.sitterUid+'/reservations/'+firebase.auth().currentUser.uid).update({
       startDate:this.parserFormatter.format(this.model),
       endDate: this.parserFormatter.format(this.model2),
-      name:this.userName
+      name:this.userName,
+      tur:tur,
+      cins:cins,
+      yas:yas
+      
 })
   }
   

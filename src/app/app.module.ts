@@ -22,7 +22,8 @@ import { ResponseRequestComponent } from './response-request/response-request.co
 import {PetsitterProfilComponent} from './user-profil/petsitter-profil/petsitter-profil.component';
 import { AdvertComponent } from './pets/advert/advert.component';
 import { DetailComponent } from './pets/detail/detail.component';
-import { OwnPetComponent } from './pets/own-pet/own-pet.component'
+import { OwnPetComponent } from './pets/own-pet/own-pet.component';
+import { EditProfilComponent } from './user-profil/edit-profil/edit-profil.component'
 
 
 
@@ -43,6 +44,7 @@ import { OwnPetComponent } from './pets/own-pet/own-pet.component'
     AdvertComponent,
     DetailComponent,
     OwnPetComponent,
+    EditProfilComponent,
    
   ],
   imports: [

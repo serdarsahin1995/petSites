@@ -16,6 +16,7 @@ import { PetsitterProfilComponent } from './user-profil/petsitter-profil/petsitt
 import { AdvertComponent } from './pets/advert/advert.component';
 import { DetailComponent } from './pets/detail/detail.component';
 import { OwnPetComponent } from './pets/own-pet/own-pet.component';
+import { EditProfilComponent } from './user-profil/edit-profil/edit-profil.component';
 
 const routes: Routes = [
 	{ path:'giriş',component:LoginComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
 	{path: "advert", component:AdvertComponent},
 	{path: "detail",component:DetailComponent},
 	{path: "OwnAdvert", component:OwnPetComponent},
+	{path:"editMyProfil",component:EditProfilComponent},
 	  {path:"app", component:AppComponent},
 	  
 

@@ -205,6 +205,23 @@ getAllpetSitters(){
       return  this.db.list('/petOwn/' + user.uid + '/Adverts').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
+    kisiselBilgi(isim,sehir,yas,hakkinda,key){
+      this.db.object('/Petsitters/'+key.uid).update({
+        name: isim,
+        adress:sehir,
+        yas:yas,
+        hakkında: hakkinda,
+      })
+    }
+    evBilgi(mesken,bahce,oda,baskapet,sigara,key){
+      this.db.object('/Petsitters/'+key.uid+'/evBilgi').update({
+        mesken: mesken,
+        bahce:bahce,
+        oda:oda,
+        baskapet: baskapet,
+        sigara:sigara,
+      })
+    }
     
 }
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {UserService } from '../../services/userService/user.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {FileUpload} from '../../fileupload';
 
 @Component({
   selector: 'app-own-pet',
@@ -16,6 +17,7 @@ export class OwnPetComponent implements OnInit {
   Sehir:any;
   ilanAciklamasi:any;
   yas:any;
+  @Input () fileUpload: FileUpload;
 
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db:AngularFireDatabase) { }
 

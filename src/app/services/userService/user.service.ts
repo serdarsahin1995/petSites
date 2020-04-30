@@ -3,9 +3,12 @@ import {of as observableOf, Observable} from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {map, switchMap } from 'rxjs/operators'
 import {auth, User} from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 import {CanActivate, Router} from '@angular/router';
 declare let alertify:any;
+import {FileUpload} from '../../fileupload';
 @Injectable({
   providedIn: 'root',
 
@@ -18,6 +21,8 @@ name:any;
 x:any;
 getUid:any;
 getUid2:any;
+keyTemp:any;
+private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
     if(!authState){
@@ -197,6 +202,23 @@ getAllpetSitters(){
       })
 
     }
+    private saveFileData(fileUpload: FileUpload,keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
+      this.db.list('/Adverts/').push(fileUpload).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+      });
+      this.db.list('/petOwn/'+ keyTemp+'/Adverts/').push(fileUpload).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+      });
+
+    }
     detail(uid){
       this.db.object('/Adverts/'+uid)
 
@@ -222,6 +244,44 @@ getAllpetSitters(){
         sigara:sigara,
       })
     }
+    pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number },key,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
+      this.keyTemp=key.uid
+      console.log(this.keyTemp)
+
+      var x =this.db.createPushId();
+      
+      const storageRef = firebase.storage().ref();
+      const uploadTask = storageRef.child(`/uploads/${fileUpload.file.name}`).put(fileUpload.file);
+      
+  
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          // in progress
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+          progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        },
+        (error) => {
+          // fail
+          console.log(error);
+        },
+        () => {
+          // success
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            console.log('File available at', downloadURL);
+            fileUpload.url = downloadURL;
+            fileUpload.name = fileUpload.file.name;
+             
+            this.saveFileData(fileUpload,this.keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi);
+          });
+        }
+      );
+    }
+    
+    getFileUploads(numberItems): AngularFireList<FileUpload> {
+      return this.db.list(this.basePath, ref =>
+        ref.limitToLast(numberItems));
+    }
+
     
 }
 

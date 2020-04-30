@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {UserService} from '../../services/userService/user.service';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {FileUpload} from '../../fileupload'
 
 @Component({
   selector: 'app-detail',
@@ -14,6 +15,9 @@ export class DetailComponent implements OnInit {
   Sehir:any;
   ilanAciklamasi:any;
   yas:any;
+  url:any;
+  name:any;
+  @Input () fileUpload: FileUpload;
 
   constructor(public user: UserService,private db:AngularFireDatabase) { }
 
@@ -25,6 +29,8 @@ export class DetailComponent implements OnInit {
     this.db.object('/Adverts/' + this.temp + "/Sehir").snapshotChanges().subscribe(c=>{this.Sehir=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/ilanAciklamasi").snapshotChanges().subscribe(c=>{this.ilanAciklamasi=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/yas").snapshotChanges().subscribe(c=>{this.yas=c.payload.val()})
+    this.db.object('/Adverts/' + this.temp + "/url").snapshotChanges().subscribe(c=>{this.url=c.payload.val()})
+    this.db.object('/Adverts/' + this.temp + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
 
     console.log(this.cins)
   }

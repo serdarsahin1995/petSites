@@ -282,6 +282,35 @@ getAllpetSitters(){
         ref.limitToLast(numberItems));
     }
 
+    pushStorage(fileUpload: FileUpload, progress: { percentage: number },path){
+      const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        // in progress
+        const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+      },
+      (error) => {
+        // fail
+        console.log(error);
+      },
+      () => {
+        // success
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+          console.log('File available at', downloadURL);
+          fileUpload.url = downloadURL;
+          fileUpload.name = fileUpload.file.name;
+          this.saveImagetoDatabase(fileUpload,path);
+        });
+      }
+    );
+    }
+    saveImagetoDatabase(fileUpload: FileUpload,path){
+      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/'+path).update({imageUrl:fileUpload.url});
+    }
+
     
 }
 

@@ -18,6 +18,8 @@ name:any;
 model: NgbDateStruct;
 model2: NgbDateStruct;
 userName:any;
+profilPhoto:any;
+evPhoto:any;
 mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
   constructor(private us:UserService,private db :AngularFireDatabase,private afAuth: AngularFireAuth,private parserFormatter: NgbDateParserFormatter) { }
 
@@ -31,6 +33,8 @@ mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/oda").snapshotChanges().subscribe(c=>{this.oda=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>{this.sigara=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>{this.baskapet=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/kisiBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
   }
   reservation(tur,cins,yas){
     this.db.object('/Petsitters/'+this.sitterUid+'/reservations/'+firebase.auth().currentUser.uid).update({

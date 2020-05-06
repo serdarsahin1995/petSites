@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-petsitter-profil',
@@ -20,6 +21,7 @@ model2: NgbDateStruct;
 userName:any;
 profilPhoto:any;
 evPhoto:any;
+
 mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
   constructor(private us:UserService,private db :AngularFireDatabase,private afAuth: AngularFireAuth,private parserFormatter: NgbDateParserFormatter) { }
 
@@ -37,14 +39,17 @@ mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
   }
   reservation(tur,cins,yas){
-    console.log(Number(this.parserFormatter.format(this.model2))-Number(this.parserFormatter.format(this.model)))
+   let date1:moment.Moment=moment(this.parserFormatter.format(this.model));
+let date2:moment.Moment=moment(this.parserFormatter.format(this.model2));
+let gece=date2.diff(date1, 'days')
     this.db.object('/Petsitters/'+this.sitterUid+'/reservations/'+firebase.auth().currentUser.uid).update({
       startDate:this.parserFormatter.format(this.model),
       endDate: this.parserFormatter.format(this.model2),
       name:this.userName,
       tur:tur,
       cins:cins,
-      yas:yas
+      yas:yas,
+      gece:gece
       
 })
   }

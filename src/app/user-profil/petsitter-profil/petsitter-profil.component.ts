@@ -37,6 +37,7 @@ mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
   }
   reservation(tur,cins,yas){
+    console.log(Number(this.parserFormatter.format(this.model2))-Number(this.parserFormatter.format(this.model)))
     this.db.object('/Petsitters/'+this.sitterUid+'/reservations/'+firebase.auth().currentUser.uid).update({
       startDate:this.parserFormatter.format(this.model),
       endDate: this.parserFormatter.format(this.model2),

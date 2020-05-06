@@ -3,6 +3,8 @@ import { UserService } from 'src/app/services/userService/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import {FileUpload} from '../../fileupload';
+import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'app-edit-profil',
   templateUrl: './edit-profil.component.html',
@@ -16,13 +18,14 @@ export class EditProfilComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: FileUpload;
   progress: { percentage: number } = { percentage: 0 };
-  constructor(public user: UserService, private fb:FormBuilder,private db:AngularFireDatabase) {
+  constructor(public user: UserService, private fb:FormBuilder,private db:AngularFireDatabase,public auth:AngularFireAuth) {
     this.regiForm= this.fb.group({
       'isim':[null,Validators.required],
       'sehir':[null,Validators.required],
       'yas':[null,Validators.required],
-      'hakkinda':[null,Validators.required],
+      'hakkinda':[null,Validators.required,],
       })
+     
       this.evForm= this.fb.group({
         'mesken':[null,Validators.required],
         'bahce':[null,Validators.required],
@@ -35,9 +38,17 @@ export class EditProfilComponent implements OnInit {
 
   ngOnInit() {
     this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/hakkında").snapshotChanges().subscribe(c=>this.regiForm.get('hakkinda').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/name").snapshotChanges().subscribe(c=>this.regiForm.get('isim').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/adress").snapshotChanges().subscribe(c=>this.regiForm.get('sehir').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/yas").snapshotChanges().subscribe(c=>this.regiForm.get('yas').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/bahce").snapshotChanges().subscribe(c=>this.evForm.get('bahce').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/mesken").snapshotChanges().subscribe(c=>this.evForm.get('mesken').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/oda").snapshotChanges().subscribe(c=>this.evForm.get('oda').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>this.evForm.get('baskapet').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>this.evForm.get('sigara').setValue(c.payload.val())));
   }
   onSubmit(from){
-    console.log(this.userTemp.uid)
     if(this.regiForm.valid){
       this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,this.userTemp);
       

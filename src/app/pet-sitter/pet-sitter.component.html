@@ -1,6 +1,6 @@
 <tr *ngFor="let obj of petsitters;let i=index">
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx" alt="Card image cap">
+    <img class="card-img-top" src="{{obj.imageUrl}}" alt="Card image cap" height="250px">
     <div class="card-body">
       <h5 class="card-title">{{obj.name}}</h5>
       <p class="card-text">{{obj.Bilgi}}</p>

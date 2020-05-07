@@ -160,7 +160,8 @@ getAllpetSitters(){
         name: name,
         hakkında:"Boş",
         gecelik:"Boş",
-        adress:"Boş"
+        adress:"Boş",
+        imageUrl:"https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx"
   })
     }
     setKey(key){
@@ -308,7 +309,12 @@ getAllpetSitters(){
     );
     }
     saveImagetoDatabase(fileUpload: FileUpload,path){
+      if(path=="yok"){
+        this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/').update({imageUrl:fileUpload.url});
+      }
+      else{
       this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/'+path).update({imageUrl:fileUpload.url});
+    }
     }
 
     

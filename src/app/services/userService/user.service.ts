@@ -22,6 +22,7 @@ x:any;
 getUid:any;
 getUid2:any;
 keyTemp:any;
+messageId:any;
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -118,18 +119,28 @@ this.afAuth.auth.signOut();
     })
   }
   getMessage(user: firebase.User){
-    return  this.db.list('/ogrenci/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
+    return  this.db.list('/petOwn/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
       .map(c => ({key: c.payload.key, ...c.payload.val()}))));
   }
 
   getMdetail(user:firebase.User,mId){
-    return  this.db.list('/ogrenci/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
+    return  this.db.list('/petOwn/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
       .map(c => c.payload.val())));
   }
   messageTF(user: firebase.User, key){
-    this.db.object('/ogrenci/'+user.uid+'/Mesaj/'+ key).update({
+    this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).update({
         boolean: true,
   })
+}
+sendMessage(key,baslık,mesaj,newdate,time){
+  var x =this.db.createPushId();
+  this.db.object('/petOwn/' + key+'/Mesaj/'+x).update({
+    baslik:baslık,
+    Mesaj: mesaj,
+    Tarih:newdate,
+    boolean:false,
+    Time:time,
+  }).then((result)=> this.router.navigate(['myProfil']));;;
 }
 getAllpetSitters(){
   return  this.db.list('/Petsitters').snapshotChanges().pipe(
@@ -210,6 +221,7 @@ getAllpetSitters(){
         yas:yas,
         Sehir: Sehir,
         ilanAciklamasi:ilanAciklamasi,
+        ida:keyTemp
       });
       this.db.list('/petOwn/'+ keyTemp+'/Adverts/').push(fileUpload).update({
         Cinsi: Cinsi,
@@ -217,6 +229,7 @@ getAllpetSitters(){
         yas:yas,
         Sehir: Sehir,
         ilanAciklamasi:ilanAciklamasi,
+        ida:keyTemp
       });
 
     }
@@ -315,6 +328,9 @@ getAllpetSitters(){
       else{
       this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/'+path).update({imageUrl:fileUpload.url});
     }
+    }
+    messageSend(key){
+      this.messageId=key
     }
 
     

@@ -17,13 +17,15 @@ export class DetailComponent implements OnInit {
   yas:any;
   url:any;
   name:any;
+  ida:any;
   @Input () fileUpload: FileUpload;
 
   constructor(public user: UserService,private db:AngularFireDatabase) { }
 
   ngOnInit() {
     this.temp = this.user.getEditId()
-    console.log(this.temp)
+   
+    
     this.db.object('/Adverts/' + this.temp + "/Cinsi").snapshotChanges().subscribe(c=>{this.cins=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/Cinsiyet").snapshotChanges().subscribe(c=>{this.Cinsiyet=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/Sehir").snapshotChanges().subscribe(c=>{this.Sehir=c.payload.val()})
@@ -31,8 +33,10 @@ export class DetailComponent implements OnInit {
     this.db.object('/Adverts/' + this.temp + "/yas").snapshotChanges().subscribe(c=>{this.yas=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/url").snapshotChanges().subscribe(c=>{this.url=c.payload.val()})
     this.db.object('/Adverts/' + this.temp + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
+    this.db.object('/Adverts/' + this.temp + "/ida").snapshotChanges().subscribe(c=>{this.ida=c.payload.val()})
+    
 
-    console.log(this.cins)
+    
   }
 
 }

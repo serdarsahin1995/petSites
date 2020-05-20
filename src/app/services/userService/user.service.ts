@@ -156,6 +156,14 @@ getAllpetSitters(){
   return  this.db.list('/Petsitters').snapshotChanges().pipe(
       map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
   }
+  getAdmin(){
+    return  this.db.list('/admin').snapshotChanges().pipe(
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+  }
+getAllPetOwners(){
+  return  this.db.list('/petOwn').snapshotChanges().pipe(
+    map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
+}
   getAllAdverts(){
     return  this.db.list('/Adverts').snapshotChanges().pipe(
         map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
@@ -342,6 +350,7 @@ getAllpetSitters(){
     }
     messageSend(key){
       this.messageId=key
+      console.log(this.messageId.name)
     }
 
     

@@ -34,13 +34,34 @@ sigara:any
 baskapet:any
 evPhoto:any
 result:any ; result2:Array<any>;
+petS:boolean=false;
+temp:any
+data:any;
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }
 
   ngOnInit() {
+  
+    this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp.email);
+    this.afAuth.user.subscribe(user => this.us.getMessage(user).subscribe(m => this.message=m));
+
+    this.listFalse = []
+    
+    
+    this.afAuth.user.subscribe(user => this.us.getMessage(user).subscribe(detail => {detail.forEach(c=>{
+      this.listFalse.push(c)
+    }
+    );this.listFalse.map(item=> { if(item.boolean === false){ console.log(item)
+      this.count++}this.bildirim=this.count});
+      this.listFalse=[]
+     this.count=0;}));
+
+
     this.resArray=[]
     this.result2=[]
+   
+    
     this.db.list('/Petsitters/').snapshotChanges().subscribe(items=>{
       items.forEach(values => {
        let key = values.key;
@@ -58,16 +79,21 @@ result:any ; result2:Array<any>;
        }     
      });
     });
-    this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
-      items.forEach(values => {
-       let key = values.key;
-       if(this.afAuth.auth.currentUser.uid==key){
-        this.petOwn=true;
-        this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
-        this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/image").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
-       }     
-     });
-    });
+      this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
+        items.forEach(values => {
+         let key = values.key;
+         if(this.afAuth.auth.currentUser.uid==key){
+          this.petOwn=true;
+          this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
+          this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/image").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
+          
+         }     
+       });
+      });
+ 
+     
+
+    
     
     this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp.email);
     this.afAuth.user.subscribe(user => this.us.getMessage(user).subscribe(m => this.message=m));
@@ -88,6 +114,21 @@ result:any ; result2:Array<any>;
     
     this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
     this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
+  }
+  kisiler(key){
+    if(key=="yonetici"){
+      this.us.getAdmin().subscribe(a=>this.data=a);
+    console.log("asd")
+    }
+    if(key=="bakıcılar"){
+      this.us.getAllpetSitters().subscribe(a=>this.data=a);
+    }
+    if(key=="hayvan sahibleri"){
+      this.us.getAllPetOwners().subscribe(a=>this.data=a);
+    }
+  }
+  onSubmit(key){
+    this.us.messageSend(key)
   }
 
   getReservations(){

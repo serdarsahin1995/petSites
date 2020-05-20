@@ -1,9 +1,21 @@
-<form [formGroup]="editForm" (ngSubmit)="edit(editForm.value)" *ngIf="(admin==true) || (ogrencisleri==true)">
-    <label>Student Email</label>
-    <p> {{email}}</p>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Student Name</label>
-    <input formControlName="studentName" class="form-control" id="studentName" aria-describedby="emailHelp" placeholder={{name}}>
-    </div>
-    <button type="edit" class="btn btn-primary">Submit </button>
-    </form>
+<label for="exampleInputEmail1">İsim</label>
+<input type="text" id="exampleForm2" class="form-control" #userN required>
+
+<div *ngIf="currentFileUpload" class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+        aria-valuemin="0" aria-valuemax="100"
+        [ngStyle]="{width:progress.percentage+'%'}">
+        {{progress.percentage}}%</div>
+</div>
+<div id="ss">
+    <label class="btn btn-default" > <input type="file" 
+        (change)="selectFile($event)" >
+    </label>
+</div>
+
+<div id="sa">
+   
+    <button (click)="upload()" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
+</div>
+<button  (click)="changeProfilInfo(userN.value)"class="btn btn-primary">Bilgileri Güncelle </button>

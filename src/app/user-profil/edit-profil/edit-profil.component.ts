@@ -24,6 +24,7 @@ export class EditProfilComponent implements OnInit {
       'sehir':[null,Validators.required],
       'yas':[null,Validators.required],
       'hakkinda':[null,Validators.required,],
+      'gecelik':[null,Validators.required,],
       })
      
       this.evForm= this.fb.group({
@@ -39,6 +40,7 @@ export class EditProfilComponent implements OnInit {
   ngOnInit() {
     this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/hakkında").snapshotChanges().subscribe(c=>this.regiForm.get('hakkinda').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/gecelik").snapshotChanges().subscribe(c=>this.regiForm.get('gecelik').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/name").snapshotChanges().subscribe(c=>this.regiForm.get('isim').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/adress").snapshotChanges().subscribe(c=>this.regiForm.get('sehir').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/yas").snapshotChanges().subscribe(c=>this.regiForm.get('yas').setValue(c.payload.val())));
@@ -47,10 +49,11 @@ export class EditProfilComponent implements OnInit {
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/oda").snapshotChanges().subscribe(c=>this.evForm.get('oda').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>this.evForm.get('baskapet').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>this.evForm.get('sigara').setValue(c.payload.val())));
+    
   }
   onSubmit(from){
     if(this.regiForm.valid){
-      this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,this.userTemp);
+      this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,from.gecelik,this.userTemp);
       
     }
   }

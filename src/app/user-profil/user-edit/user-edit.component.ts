@@ -4,71 +4,73 @@ import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import {AngularFireDatabase} from '@angular/fire/database';
 declare let alertify:any;
 import { Router} from '@angular/router';
-
+import {FileUpload} from '../../fileupload';
+import * as firebase from 'firebase/app';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  editForm:FormGroup;
-  email:any
-  name:any;
-  id:any;
-  userTemp:firebase.User
-admin:boolean=false;
-ogrencisleri:boolean=false;
-ogrenci:boolean=false;
+  selectedFiles: FileList;
+  currentFileUpload: FileUpload;
+  progress: { percentage: number } = { percentage: 0 };
+  private basePath = '/uploads';
   constructor( private user:UserService, private fb:FormBuilder,private db:AngularFireDatabase,private router:Router) { 
-    this.editForm= this.fb.group({
-      'studentName':[null,Validators.required]
-      })
-
   }
-
   ngOnInit() {
-    this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
-  this.name=this.user.temp.name
-  this.email=this.user.temp.email
-  this.id=this.user.editId
-  console.log(this.name)
-  console.log(this.email)
-  this.db.list('/admin/').snapshotChanges().subscribe(items=>{
-    items.forEach(values => {
-     let key = values.key;
-     if(this.userTemp.uid==key){
-      this.admin=true;
-      console.log(key)
-      console.log(this.userTemp.uid)
-     }     
-   });
-  });
-  this.db.list('/ogrenciIsleri/').snapshotChanges().subscribe(items=>{
-    items.forEach(values => {
-     let key = values.key;
-     if(this.userTemp.uid==key){
-      this.ogrencisleri=true;
-      console.log(key)
-      console.log(this.userTemp.uid)
-     }     
-   });
-
-  });
-  this.db.list('/ogrenci/').snapshotChanges().subscribe(items=>{
-    items.forEach(values => {
-     let key = values.key;
-     if(this.userTemp.uid==key){
-      this.ogrenci=true;
-      console.log(key)
-      console.log(this.userTemp.uid)
-     }     
-   });
-
-  });
-  
+ 
   }
 
 
-  
+  upload(){
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
 
+    this.currentFileUpload = new FileUpload(file);
+    this.pushStorage(this.currentFileUpload, this.progress);
+
+  }
+  selectFile(event) {
+    const file = event.target.files.item(0);
+
+    if (file.type.match('image.*')) {
+      this.selectedFiles = event.target.files;
+    } else {
+      alert('invalid format!');
+    }
+  }
+  pushStorage(fileUpload: FileUpload, progress: { percentage: number }){
+    const storageRef = firebase.storage().ref();
+  const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
+
+  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    (snapshot) => {
+      // in progress
+      const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+      progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+    },
+    (error) => {
+      // fail
+      console.log(error);
+    },
+    () => {
+      // success
+      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+        console.log('File available at', downloadURL);
+        fileUpload.url = downloadURL;
+        fileUpload.name = fileUpload.file.name;
+        this.saveImagetoDatabase(fileUpload);
+      });
+    }
+  );
+  }
+  saveImagetoDatabase(fileUpload: FileUpload,){
+    
+      this.db.object(`petOwn/`+firebase.auth().currentUser.uid+'/').update({image:fileUpload.url});
+   
+}
+changeProfilInfo(namee){
+  this.db.object(`petOwn/`+firebase.auth().currentUser.uid+'/').update({name:namee});
+}
 }

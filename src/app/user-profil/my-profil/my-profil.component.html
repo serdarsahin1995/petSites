@@ -7,16 +7,40 @@
         <div id="ss" >
         <div class="listebox">
         
-        <div class="card" style="width: 18rem;">
-            <img src="https://pbs.twimg.com/profile_images/606791666251493376/vn1M5fjn.jpg" class="card-img-top" alt="...">
+        <div class="card" style="width: 18rem;" *ngIf="(petOwn==true)">
+            <img src="{{profilPhoto}}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5>{{userTemp}}</h5>
             </div>
-            <a class="btn btn-primary"   href="editMyProfil" >Profil Güncelle(petsitter için) </a>
+            <a class="btn btn-primary" href="editProfil">Profil Güncelle </a>
             <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
             
           </div>
         </div>
+        </div>
+
+
+        <div *ngIf="(petsitter==true)">
+          <div class="card" >
+            <img src="{{profilPhoto}}" alt="Card image cap" style="width:100%">
+            <h1>{{name}}</h1>
+            <p>istanbul/çekmeköy</p>
+            <p class="title">Hakkında</p>
+            <p>{{hakkinda}}</p>
+            <a class="btn btn-primary"   href="editMyProfil" >Profil Güncelle </a>
+            <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
+          </div>
+          <div class="card2" >
+            <img src="{{evPhoto}}" alt="Card image cap" style="width:100%">
+            <h1>{{name}}'in Evi</h1>
+            <hr/>
+           
+            <p>Mesken Şekli: {{mesken}}</p>
+            <p>Bahçe: {{bahce}}</p>
+            <p>Pet için oda: {{oda}}</p>
+            <p>Başka Pet: {{baskapet}}</p>
+            <p>Sigara içimi: {{sigara}}</p>
+          </div>
         </div>
     </div>
 
@@ -79,6 +103,7 @@
             <th scope="col">Cinsiyet</th>
             <th scope="col">Yaş</th>
             <th scope="col">Kaç Gece</th>
+            <th scope="col">Toplam Tutar</th>
             <th scope="col">Eylem</th>
           </tr>
         </thead>
@@ -91,11 +116,12 @@
           <td>{{objj.tur}}</td>
           <td>{{objj.cins}}</td>
           <td>{{objj.yas}}</td>
-          <td>5</td>
+          <td>{{objj.gece}}</td>
+          <td>{{result2[i]}}</td>
           
        
           <td><button type="button" class="btn btn-secondary"  >Kabul et</button>-
-          <button type="button" class="btn btn-secondary"  >Reddet</button> </td>
+          <button type="button" class="btn btn-secondary"  (click)="removeReservation(objj.key)">Reddet</button> </td>
         </tr>
           
         

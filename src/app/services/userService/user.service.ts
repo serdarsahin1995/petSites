@@ -51,6 +51,15 @@ isAdmin:Observable<boolean>= this.uid.pipe(
     }
   })
 );
+isPetsitter:Observable<boolean>= this.uid.pipe(
+  switchMap(uid=>{
+    if(!uid){
+      return observableOf(false);
+    }else{
+      return this.db.object<boolean>('/Petsitters/'+ uid).valueChanges()
+    }
+  })
+);
 
 editProfil(email,uid){
   this.temp=email;
@@ -79,7 +88,8 @@ this.afAuth.auth.signOut();
     });
     this.db.object('/petOwn/' + user.uid).update({
       name: namee,
-      email: user.email
+      email: user.email,
+      image:"https://pbs.twimg.com/profile_images/606791666251493376/vn1M5fjn.jpg" 
     });
   }
   getCurrentUser(){
@@ -241,12 +251,13 @@ getAllpetSitters(){
       return  this.db.list('/petOwn/' + user.uid + '/Adverts').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
-    kisiselBilgi(isim,sehir,yas,hakkinda,key){
+    kisiselBilgi(isim,sehir,yas,hakkinda,gecelik,key){
       this.db.object('/Petsitters/'+key.uid).update({
         name: isim,
         adress:sehir,
         yas:yas,
         hakkında: hakkinda,
+        gecelik:gecelik
       })
     }
     evBilgi(mesken,bahce,oda,baskapet,sigara,key){

@@ -130,23 +130,23 @@
     
     </ng-template>
   </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Iletisim kur</b></ng-template>
-    <ng-template ngbTabContent>
-      <select #tur>
+  <ngb-tab >
+    <ng-template ngbTabTitle ><b>Iletisim kur</b></ng-template>
+    <ng-template ngbTabContent >
+      <select #tur id="aa">
         <option value="yonetici">yonetici</option>
         <option value="bakıcılar">bakıcılar</option>
         <option value="hayvan sahibleri">hayvan sahibleri</option>
         
       </select>
-      <p><button (click)="kisiler(tur.value)"  class="btn btn-primary">Kişileri getir</button></p>
+      <p id="ab"><button (click)="kisiler(tur.value)"  class="btn btn-primary">Kişileri getir</button></p>
     
         <div class="form-group" >
-          <label for="sel1">Select list (select one):</label>
+          <label for="sel1">Kişi seç</label>
           <select class="form-control"id="sel1" formControlName="OgrenciId" #tur2> 
             <option *ngFor="let obj of data"  [value]="obj.key">{{obj.name}}</option>
           </select>
-          <button (click)="onSubmit(tur2.value)" class="btn btn-primary" routerLink='/sendMessage2'>Mesaj yolla </button>
+          <button (click)="onSubmit(tur2.value)" class="btn btn-primary" routerLink='/sendMessage2' id="ac">Mesaj yaz </button>
           <br>
           
         </div>

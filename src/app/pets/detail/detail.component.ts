@@ -23,7 +23,8 @@ export class DetailComponent implements OnInit {
   constructor(public user: UserService,private db:AngularFireDatabase) { }
 
   ngOnInit() {
-    this.temp = this.user.getEditId()
+    this.temp = this.user.getUid2;
+    console.log(this.temp)
    
     
     this.db.object('/Adverts/' + this.temp + "/Cinsi").snapshotChanges().subscribe(c=>{this.cins=c.payload.val()})

@@ -1,18 +1,26 @@
-<tr *ngFor="let obj of petsitters;let i=index">
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{obj.imageUrl}}" alt="Card image cap" height="250px">
-    <div class="card-body">
-      <h5 class="card-title">{{obj.name}}</h5>
-      <p class="card-text">{{obj.Bilgi}}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{obj.adress}}</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Gecelik : {{obj.gecelik}} TL</li>
-    </ul>
-    <div class="card-body">
-      <a routerLink="/sitterProfil" (click)="us.setKey(obj.key)" class="card-link">Profile Git</a>
-      
-    </div>
+<div class="container">
+  <div class="row">
+    <tr *ngFor="let obj of petsitters;let i=index">
+      <div class="row mb-5">
+        <div class="col-md-4">
+          <div class="card" style="width: 21rem;">
+            <img src="{{obj.imageUrl}}" class="card-img-top"alt="Card image cap" height="250px" >
+       
+            <div class="card-body">
+              <h5 class="card-title">İsmi: {{obj.name}}</h5>
+              <p class="card-text">{{obj.Bilgi}}</p>
+              <p class="card-text">Adresi:{{obj.adress}}</p>
+              <p class="card-text">Dapibus ac facilisis in</p>
+              <p class="card-text">Gecelik : {{obj.gecelik}} TL</p>
+              <a class="btn btn-primary" routerLink="/sitterProfil" (click)="us.setKey(obj.key)" >Profile Git</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </tr>
+    <div class="w-100"></div>
+   
   </div>
-</tr>
+</div>

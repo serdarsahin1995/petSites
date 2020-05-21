@@ -37,6 +37,7 @@ result:any ; result2:Array<any>;
 petS:boolean=false;
 temp:any
 data:any;
+rol:any
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }
@@ -118,17 +119,19 @@ data:any;
   kisiler(key){
     if(key=="yonetici"){
       this.us.getAdmin().subscribe(a=>this.data=a);
-    console.log("asd")
+      this.rol=key
     }
     if(key=="bakıcılar"){
       this.us.getAllpetSitters().subscribe(a=>this.data=a);
+      this.rol=key
     }
     if(key=="hayvan sahibleri"){
       this.us.getAllPetOwners().subscribe(a=>this.data=a);
+      this.rol=key
     }
   }
   onSubmit(key){
-    this.us.messageSend(key)
+    this.us.messageSend(key,this.rol)
   }
 
   getReservations(){

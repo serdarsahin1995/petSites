@@ -23,6 +23,8 @@ getUid:any;
 getUid2:any;
 keyTemp:any;
 messageId:any;
+kisi:any;
+kisi2:any;
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -151,6 +153,39 @@ sendMessage(key,baslık,mesaj,newdate,time){
     boolean:false,
     Time:time,
   }).then((result)=> this.router.navigate(['myProfil']));;;
+}
+sendMessage2(key,baslık,mesaj,newdate,time){
+  var x =this.db.createPushId();
+  if(this.kisi=="bakıcılar"){
+    this.db.object('/Petsitters/' + key+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  }
+  else if(this.kisi=="hayvan sahibleri"){
+    this.db.object('/petOwn/' + key+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  }
+  else{
+    this.db.object('/admin/' + key+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  }
+ 
+
+ 
 }
 getAllpetSitters(){
   return  this.db.list('/Petsitters').snapshotChanges().pipe(
@@ -348,10 +383,13 @@ getAllPetOwners(){
       this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/'+path).update({imageUrl:fileUpload.url});
     }
     }
-    messageSend(key){
+    messageSend(key,kisit){
       this.messageId=key
+      this.kisi=kisit
+      console.log(this.kisi)
       console.log(this.messageId.name)
     }
+    
 
     
 }

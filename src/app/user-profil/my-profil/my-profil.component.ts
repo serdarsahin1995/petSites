@@ -147,5 +147,9 @@ rol:any
     this.result2 = []
     this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+key).remove();
   }
+  applyReservation(obj){
+    this.us.applyResv(obj)
+
+  }
 
 }

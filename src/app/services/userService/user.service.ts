@@ -389,6 +389,10 @@ getAllPetOwners(){
       console.log(this.kisi)
       console.log(this.messageId.name)
     }
+    applyResv(obj){
+      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj);
+      this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+obj.key).remove();
+    }
     
 
     

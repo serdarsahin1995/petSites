@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/userService/user.service';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
@@ -21,9 +21,12 @@ model2: NgbDateStruct;
 userName:any;
 profilPhoto:any;
 evPhoto:any;
+minD:NgbDateStruct;
+minD2:NgbDateStruct;
 
 mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
-  constructor(private us:UserService,private db :AngularFireDatabase,private afAuth: AngularFireAuth,private parserFormatter: NgbDateParserFormatter) { }
+  constructor(private us:UserService,private db :AngularFireDatabase,private afAuth: AngularFireAuth,private parserFormatter: NgbDateParserFormatter,private calander : NgbCalendar) {
+    this.minD = this.calander.getToday();}
 
   ngOnInit() {
    this.sitterUid = this.us.getpetS()
@@ -37,6 +40,8 @@ mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>{this.baskapet=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/imageUrl").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
+   
+   
   }
   reservation(tur,cins,yas){
    let date1:moment.Moment=moment(this.parserFormatter.format(this.model));
@@ -52,6 +57,9 @@ let gece=date2.diff(date1, 'days')
       gece:gece
       
 })
+  }
+  onDateSelection(){
+    this.minD2 = this.model
   }
   
   

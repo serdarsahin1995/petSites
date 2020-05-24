@@ -97,6 +97,9 @@ this.afAuth.auth.signOut();
   getCurrentUser(){
     return this.afAuth.authState;
   }
+  getCU(){
+    return this.afAuth.auth.currentUser.uid
+  }
   canActivate():Observable<boolean>{
     return this.afAuth.authState.pipe(
       map(user=>{
@@ -229,8 +232,8 @@ getAllPetOwners(){
   })
     }
     setKey(key){
+      localStorage.setItem('key',key)
       this.getUid = key;
-      console.log(this.getUid)
     }
     Edit(key){
       this.getUid2 = key;

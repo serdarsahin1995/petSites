@@ -14,6 +14,7 @@ export class SendMessageComponent implements OnInit {
   userTemp:firebase.User
   newdate :string;
   time:any;
+  
 
   constructor(public user: UserService,private db:AngularFireDatabase, private fb:FormBuilder) {
     this.regiForm= this.fb.group({
@@ -44,7 +45,7 @@ export class SendMessageComponent implements OnInit {
   onSubmit(from){
     console.log(from)
     if(this.regiForm.valid){
-      this.user.sendMessage(this.id,from.baslık,from.yazı,this.newdate,this.time);
+      this.user.sendMessage(this.id,from.baslık,from.yazı,this.newdate,this.time,this.userTemp);
     }
   }
 

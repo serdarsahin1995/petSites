@@ -44,7 +44,7 @@ export class SendMessage2Component implements OnInit {
   onSubmit(from){
     console.log(from)
     if(this.regiForm.valid){
-      this.user.sendMessage2(this.id,from.baslık,from.yazı,this.newdate,this.time);
+      this.user.sendMessage2(this.id,from.baslık,from.yazı,this.newdate,this.time,this.userTemp);
     }
   }
 

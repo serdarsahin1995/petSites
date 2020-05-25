@@ -59,6 +59,7 @@
             <th scope="col">Baslik</th>
             <th scope="col">Tarih    -    Saat</th>
             <th scope="col">detay</th>
+            <th scope="col">cevap</th>
           </tr>
         </thead>
 
@@ -70,6 +71,7 @@
           <td>{{obj.Tarih}} - {{obj.Time}}</td>
        
           <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >Oku</button> </td>
+          <td><button type="button" class="btn btn-secondary" (click)="us.answer(obj.id)" routerLink='/answer'>Cevap Yaz</button> </td>
         </tr>
       </tbody>
       </table>

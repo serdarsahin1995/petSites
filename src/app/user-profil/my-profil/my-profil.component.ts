@@ -37,7 +37,8 @@ result:any ; result2:Array<any>;
 petS:boolean=false;
 temp:any
 data:any;
-rol:any
+hayvansahibi:any;
+rol:any;
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }
@@ -68,6 +69,7 @@ rol:any
        let key = values.key;
        if(this.afAuth.auth.currentUser.uid==key){
          this.petsitter=true;
+      
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/imageUrl").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/hakkında").snapshotChanges().subscribe(c=>{this.hakkinda=c.payload.val()})
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
@@ -85,6 +87,7 @@ rol:any
          let key = values.key;
          if(this.afAuth.auth.currentUser.uid==key){
           this.petOwn=true;
+        
           this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.name=c.payload.val()})
           this.db.object('/petOwn/' + this.afAuth.auth.currentUser.uid + "/image").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
           

@@ -25,7 +25,10 @@ keyTemp:any;
 messageId:any;
 kisi:any;
 kisi2:any;
-emailK:any
+emailK:any;
+emailG:any;
+rolTemp:any;
+gg:firebase.User
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -143,12 +146,21 @@ this.afAuth.auth.signOut();
     return  this.db.list('/petOwn/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
       .map(c => c.payload.val())));
   }
+  
   messageTF(user: firebase.User, key){
     this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).update({
         boolean: true,
   })
 }
-sendMessage(key,baslık,mesaj,newdate,time){
+answer(key){
+  this.emailG=key
+  console.log(key.ıd)
+}
+rola(key){
+this.rolTemp=key;
+console.log(this.rolTemp)
+}
+sendMessage(key,baslık,mesaj,newdate,time,user: firebase.User){
   var x =this.db.createPushId();
   this.db.object('/petOwn/' + key+'/Mesaj/'+x).update({
     baslik:baslık,
@@ -156,10 +168,11 @@ sendMessage(key,baslık,mesaj,newdate,time){
     Tarih:newdate,
     boolean:false,
     Time:time,
-    gelen:this.emailK
+    gelen:this.emailK,
+    id:user.uid
   }).then((result)=> this.router.navigate(['myProfil']));;;
 }
-sendMessage2(key,baslık,mesaj,newdate,time){
+sendMessage2(key,baslık,mesaj,newdate,time,user: firebase.User){
   var x =this.db.createPushId();
   if(this.kisi=="bakıcılar"){
     this.db.object('/Petsitters/' + key+'/Mesaj/'+x).update({
@@ -168,7 +181,8 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
-      gelen:this.emailK
+      gelen:this.emailK,
+      id:user.uid
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
   else if(this.kisi=="hayvan sahibleri"){
@@ -178,7 +192,8 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
-      gelen:this.emailK
+      gelen:this.emailK,
+      id:user.uid
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
   else{
@@ -188,13 +203,51 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
-      gelen:this.emailK
+      gelen:this.emailK,
+      id:user.uid
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  } 
+}
+answer2(key,baslık,mesaj,newdate,time,user: firebase.User){
+  console.log(key)
+  var x =this.db.createPushId();
+  console.log(this.rolTemp)
+  if(this.rolTemp=="hayvansahibi"){
+    this.db.object('/petOwn/' + this.emailG+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+      gelen:this.emailK,
+      id:user.uid
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
- 
-
- 
+  else if(this.rolTemp=="bakıcı"){
+    this.db.object('/Petsitters/' + this.emailG+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+      gelen:this.emailK,
+      id:user.uid
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  }
+  else{
+    this.db.object('/admin/' + this.emailG+'/Mesaj/'+x).update({
+      baslik:baslık,
+      Mesaj: mesaj,
+      Tarih:newdate,
+      boolean:false,
+      Time:time,
+      gelen:this.emailK,
+      id:user.uid
+    }).then((result)=> this.router.navigate(['myProfil']));;;
+  }
+  
 }
+
 getAllpetSitters(){
   return  this.db.list('/Petsitters').snapshotChanges().pipe(
       map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
@@ -255,6 +308,7 @@ getAllPetOwners(){
     }
     mail(key){
       this.emailK=key;
+      console.log(this.gg.uid)
       console.log(this.emailK)
     }
     getReservations(uid){

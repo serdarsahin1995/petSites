@@ -19,6 +19,7 @@ import { OwnPetComponent } from './pets/own-pet/own-pet.component';
 import { EditProfilComponent } from './user-profil/edit-profil/edit-profil.component';
 import { SendMessageComponent } from './message/send-message/send-message.component';
 import { SendMessage2Component } from './message/send-message2/send-message2.component';
+import { AnswerComponent } from './message/answer/answer.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
 	{path:"editMyProfil",component:EditProfilComponent},
 	{path:"sendMesssage", component:SendMessageComponent},
 	{path:"sendMessage2", component:SendMessage2Component},
+	{path:"answer", component:AnswerComponent},
 	  {path:"app", component:AppComponent},
 	  
 

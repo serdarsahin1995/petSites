@@ -9,5 +9,5 @@
       <label for="exampleFormControlTextarea1">Mesaj</label>
       <textarea formControlName="yazı" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
-  <button type="onSubmit" class="btn btn-primary">Submit </button>
+  <button type="onSubmit" class="btn btn-primary" (click)="user.mail(userTemp.email)">Submit </button>
   </form>

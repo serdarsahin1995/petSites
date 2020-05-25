@@ -25,6 +25,7 @@ keyTemp:any;
 messageId:any;
 kisi:any;
 kisi2:any;
+emailK:any
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -155,6 +156,7 @@ sendMessage(key,baslık,mesaj,newdate,time){
     Tarih:newdate,
     boolean:false,
     Time:time,
+    gelen:this.emailK
   }).then((result)=> this.router.navigate(['myProfil']));;;
 }
 sendMessage2(key,baslık,mesaj,newdate,time){
@@ -166,6 +168,7 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
+      gelen:this.emailK
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
   else if(this.kisi=="hayvan sahibleri"){
@@ -175,6 +178,7 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
+      gelen:this.emailK
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
   else{
@@ -184,6 +188,7 @@ sendMessage2(key,baslık,mesaj,newdate,time){
       Tarih:newdate,
       boolean:false,
       Time:time,
+      gelen:this.emailK
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
  
@@ -248,6 +253,10 @@ getAllPetOwners(){
     getpetO(){
       return  this.getUid
     }
+    mail(key){
+      this.emailK=key;
+      console.log(this.emailK)
+    }
     getReservations(uid){
       return this.db.list('/Petsitters/' +uid+ '/reservations').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
@@ -271,23 +280,25 @@ getAllPetOwners(){
 
     }
     private saveFileData(fileUpload: FileUpload,keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
-      this.db.list('/Adverts/').push(fileUpload).update({
+      var x =this.db.createPushId();
+      this.db.object('/Adverts/'+x).update({
         Cinsi: Cinsi,
         Cinsiyet:Cinsiyet,
         yas:yas,
         Sehir: Sehir,
         ilanAciklamasi:ilanAciklamasi,
+        url:fileUpload.url,
         ida:keyTemp
       });
-      this.db.list('/petOwn/'+ keyTemp+'/Adverts/').push(fileUpload).update({
+      this.db.object('/petOwn/'+ keyTemp+'/Adverts/'+x).update({
         Cinsi: Cinsi,
         Cinsiyet:Cinsiyet,
         yas:yas,
         Sehir: Sehir,
         ilanAciklamasi:ilanAciklamasi,
+        url:fileUpload.url,
         ida:keyTemp
       });
-
     }
     detail(uid){
       this.db.object('/Adverts/'+uid)
@@ -306,6 +317,7 @@ getAllPetOwners(){
         gecelik:gecelik
       })
     }
+    
     evBilgi(mesken,bahce,oda,baskapet,sigara,key){
       this.db.object('/Petsitters/'+key.uid+'/evBilgi').update({
         mesken: mesken,

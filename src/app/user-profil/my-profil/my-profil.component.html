@@ -55,6 +55,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Gönderen</th>
             <th scope="col">Baslik</th>
             <th scope="col">Tarih    -    Saat</th>
             <th scope="col">detay</th>
@@ -64,10 +65,11 @@
       <tbody>
         <tr *ngFor="let obj of message;let i=index">
           <th scope="row">{{i+1}}</th>
+          <td>{{obj.gelen}}</td>
           <td>{{obj.baslik}}</td>
           <td>{{obj.Tarih}} - {{obj.Time}}</td>
        
-          <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >View Detail</button> </td>
+          <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >Oku</button> </td>
         </tr>
       </tbody>
       </table>
@@ -144,7 +146,7 @@
         <div class="form-group" >
           <label for="sel1">Kişi seç</label>
           <select class="form-control"id="sel1" formControlName="OgrenciId" #tur2> 
-            <option *ngFor="let obj of data"  [value]="obj.key">{{obj.name}}</option>
+            <option *ngFor="let obj of data"  [value]="obj.key">{{obj.email}}--{{obj.name}}</option>
           </select>
           <button (click)="onSubmit(tur2.value)" class="btn btn-primary" routerLink='/sendMessage2' id="ac">Mesaj yaz </button>
           <br>

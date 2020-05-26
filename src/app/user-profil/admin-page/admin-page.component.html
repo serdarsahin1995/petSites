@@ -1,0 +1,27 @@
+<select #tur id="aa">
+    <option value="yonetici">yonetici</option>
+    <option value="bakıcılar">bakıcılar</option>
+    <option value="hayvan sahibleri">hayvan sahibleri</option>
+    
+  </select>
+  <p id="ab"><button (click)="kisiler(tur.value)"  class="btn btn-primary">Kişileri getir</button></p>
+
+  <table class="table table-hover"  >
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kişi</th>
+        <th scope="col">sil</th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <tr *ngFor="let obj of data;let i=index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{obj.email}}</td>
+   
+      <td><button type="button" class="btn btn-secondary" (click)="remove(obj.key)" >Kişiyi sil</button> </td>
+      
+    </tr>
+  </tbody>
+  </table>

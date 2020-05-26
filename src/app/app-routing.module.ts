@@ -20,6 +20,7 @@ import { EditProfilComponent } from './user-profil/edit-profil/edit-profil.compo
 import { SendMessageComponent } from './message/send-message/send-message.component';
 import { SendMessage2Component } from './message/send-message2/send-message2.component';
 import { AnswerComponent } from './message/answer/answer.component';
+import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
 	{path:"sendMesssage", component:SendMessageComponent},
 	{path:"sendMessage2", component:SendMessage2Component},
 	{path:"answer", component:AnswerComponent},
+	{path:"usersPage", component:AdminPageComponent},
 	  {path:"app", component:AppComponent},
 	  
 

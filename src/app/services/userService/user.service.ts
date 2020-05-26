@@ -462,7 +462,14 @@ getAllPetOwners(){
       this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj);
       this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+obj.key).remove();
     }
-    
+    remove(key,rol){
+      
+      if(rol=="hayvan sahibleri"){
+  
+        this.db.object('/petOwn/'+key).remove();
+      }
+
+    }
 
     
 }

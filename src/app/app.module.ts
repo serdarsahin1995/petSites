@@ -27,6 +27,7 @@ import { EditProfilComponent } from './user-profil/edit-profil/edit-profil.compo
 import { SendMessageComponent } from './message/send-message/send-message.component';
 import { SendMessage2Component } from './message/send-message2/send-message2.component';
 import { AnswerComponent } from './message/answer/answer.component';
+import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
 
 
 
@@ -51,6 +52,7 @@ import { AnswerComponent } from './message/answer/answer.component';
     SendMessageComponent,
     SendMessage2Component,
     AnswerComponent,
+    AdminPageComponent,
    
   ],
   imports: [

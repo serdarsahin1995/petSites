@@ -28,6 +28,7 @@ import { SendMessageComponent } from './message/send-message/send-message.compon
 import { SendMessage2Component } from './message/send-message2/send-message2.component';
 import { AnswerComponent } from './message/answer/answer.component';
 import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 
 
@@ -53,6 +54,7 @@ import { AdminPageComponent } from './user-profil/admin-page/admin-page.componen
     SendMessage2Component,
     AnswerComponent,
     AdminPageComponent,
+    MainPageComponent,
    
   ],
   imports: [

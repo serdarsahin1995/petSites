@@ -138,8 +138,14 @@ this.afAuth.auth.signOut();
     })
   }
   getMessage(user: firebase.User){
+    if(this.isPetsitter){
+      return  this.db.list('/Petsitters/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
+    else if(this.isPetOwn){
     return  this.db.list('/petOwn/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
       .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
   }
 
   getMdetail(user:firebase.User,mId){
@@ -269,6 +275,7 @@ getAllPetOwners(){
     this.db.object('/requestBeSitter/' + user.uid + '/'  ).update({
       bilgi: metin,
       name: this.name,
+      email:user.email
 })})
   }
   getAllrequest(){
@@ -280,14 +287,25 @@ getAllPetOwners(){
         map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
        
     }
-    applyBePetsitter(uid,name){
+    applyBePetsitter(uid,name,email,time,newdate){
+      var x =this.db.createPushId();
       this.db.object('/Petsitters/' + uid + '/'  ).update({
         name: name,
         hakkında:"Boş",
         gecelik:"Boş",
         adress:"Boş",
+        email:email,
         imageUrl:"https://media-cdn.t24.com.tr/media/library/2020/02/1582296383899-5660491.jpg-r_1920_1080-f_jpg-q_x-xxyxx"
   })
+  this.db.object('/Petsitters/' + uid+'/Mesaj/'+x).update({
+    baslik:"Kabul Edildiniz",
+    Mesaj: "mesaj",
+    Tarih:newdate,
+    boolean:false,
+    Time:time,
+    gelen:"MyPetSitter",
+    id:uid
+  }).then((result)=> this.router.navigate(['myProfil']));;;
     }
     setKey(key){
       localStorage.setItem('key',key)
@@ -469,6 +487,9 @@ getAllPetOwners(){
         this.db.object('/petOwn/'+key).remove();
       }
 
+    }
+    reddet(uid){
+      this.db.object('/requestBeSitter/'+uid).remove();
     }
 
     

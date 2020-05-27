@@ -13,13 +13,13 @@
 <tbody>
   <tr *ngFor="let obj of requests;let i=index">
     <th scope="row">{{i+1}}</th>
-    <td>{{obj.name}}</td>
+    <td>{{obj.email}}({{obj.name}})</td>
     
     
  
-    <td><button type="button" class="btn btn-secondary" (click)="getbilgi(obj.key) ">Oku</button> </td>
-    <td><button type="button" class="btn btn-secondary" (click)="bePetsitter(obj.key,obj.name)"  >Kabulet</button> </td>
-    <td><button type="button" class="btn btn-secondary" >Reddet</button> </td>
+    <td><button type="button" class="btn btn-info" (click)="getbilgi(obj.key) ">Oku</button> </td>
+    <td><button type="button" class="btn btn-success" (click)="bePetsitter(obj.key,obj.name,obj.email)"  >Kabulet</button> </td>
+    <td><button type="button" class="btn btn-danger" (click)="reddet(obj.key)">Reddet</button> </td>
   </tr>
     
   

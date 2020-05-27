@@ -21,9 +21,11 @@ import { SendMessageComponent } from './message/send-message/send-message.compon
 import { SendMessage2Component } from './message/send-message2/send-message2.component';
 import { AnswerComponent } from './message/answer/answer.component';
 import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
-
+import {MainPageComponent} from './main-page/main-page.component'
 
 const routes: Routes = [
+	{ path: '',   redirectTo: '/mainpage', pathMatch: 'full' },
+	{path:'mainpage', component:MainPageComponent},
 	{ path:'giriş',component:LoginComponent},
 	{path : "userProfil", component: UserProfilComponent},
 	{path: "register", component: RegisterUserComponent},

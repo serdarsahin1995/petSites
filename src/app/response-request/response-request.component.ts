@@ -10,6 +10,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ResponseRequestComponent implements OnInit {
   requests:any;
   gBilgi:any;
+  newdate :string;
+  time:any;
 
   constructor(private us:UserService,private db :AngularFireDatabase) { }
 
@@ -19,7 +21,21 @@ export class ResponseRequestComponent implements OnInit {
   getbilgi(uid){
      this.db.object('/requestBeSitter/' + uid + "/bilgi").snapshotChanges().subscribe(c=>{this.gBilgi=c.payload.val()})
   }
-  bePetsitter(uid,name){
-    this.us.applyBePetsitter(uid,name)
+  bePetsitter(uid,name,email){
+    var dateObj = new Date();
+    var month = ("0" + (dateObj.getMonth() + 1)).slice(-2); //months from 1-12
+    var day = ("0" + dateObj.getDate()).slice(-2)
+    var year = dateObj.getFullYear();
+    var currentdate = new Date();
+     this.time =  currentdate.getHours() + ":"
+                    + currentdate.getMinutes() + ":"
+                    + currentdate.getSeconds();
+
+   
+     this.newdate = year + "-" + month + "-" + day;
+    this.us.applyBePetsitter(uid,name,email,this.time,this.newdate)
+  }
+  reddet(uid){
+    this.us.reddet(uid)
   }
 }

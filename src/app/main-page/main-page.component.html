@@ -1,0 +1,87 @@
+<div  id="hero">
+    <video autoplay loop muted oncanplay="this.play()" onloadedmetadata="this.muted = true">
+        <source src="https://firebasestorage.googleapis.com/v0/b/petsitter-f55fd.appspot.com/o/video%2FpetBackGround.mp4?alt=media&token=b48d18e2-af05-4ebd-983e-9df34a49be11" type="video/mp4">
+    </video>
+    <div class="content">
+        <div class="container">
+            <h1>MyPetSitter</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="alan">
+    <h1 style="text-align: center;">MyPetSitter Nedir?</h1>
+    <p>asdasdasdasdasdasdasdas</p>
+</div>
+
+
+<div class="b">
+<div class="cardd">
+    <div class="card1-image"></div>
+    <div class="cardd-text">
+      <span class="date">4 days ago</span>
+      <h2>Hayvan Sahibi</h2>
+      <p>MyPetSitter sayesinde sizde evcil hayvanlarınızı kendinize uygun gördüğünüz birbirinden sevecen bakıcılar ile tanışıp petinizi onlara emanet edebilirsiniz</p>
+    </div>
+    <div class="cardd-stats">
+      <div class="stat">
+        
+      </div>
+      <div class="stat border">
+        <div class="value">{{countUsers}}</div>
+        <div class="type">Kullanıcı Sayısı</div>
+      </div>
+      <div class="stat">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="cardd" routerLink='/petSitter'>
+    <div class="card2-image"></div>
+    <div class="cardd-text">
+      <span class="date">4 days ago</span>
+      <h2>Hayvan Bakıcısı</h2>
+      <p>Tecrübeli ve güvenilir kadromuz kontrolu altında sizde hayvan bakıcısı olabilir ve sevginizi diğer dostlar ile paylaşabilirsiniz.
+          Aynı zamanda bu işten gelir elde edebilirsiniz.</p>
+    </div>
+    <div class="cardd-stats">
+      <div class="stat">
+        <div class="value">4<sup>m</sup></div>
+        <div class="type">read</div>
+      </div>
+      <div class="stat border">
+        <div class="value">{{countPetsitter}}</div>
+        <div class="type">Bakıcı Sayısı</div>
+      </div>
+      <div class="stat">
+        <div class="value">32</div>
+        <div class="type">comments</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cardd" routerLink='/pets'>
+    <div class="card3-image"></div>
+    <div class="cardd-text">
+      <span class="date">4 days ago</span>
+      <h2>Hayvan Sahiplendirme</h2>
+      <p>Onları Unutamazdık.Bu alanda çevrenizde veya artık bakamadığınız hayvanların ilanını verebilir ve onlara yeni sıcak yuva bulabilirsiniz.</p>
+    </div>
+    <div class="cardd-stats">
+      <div class="stat">
+        <div class="value">4<sup>m</sup></div>
+        <div class="type">read</div>
+      </div>
+      <div class="stat border">
+        <div class="value">{{countAdvert}}</div>
+        <div class="type">İlan Sayısı</div>
+      </div>
+      <div class="stat">
+        <div class="value">32</div>
+        <div class="type">comments</div>
+      </div>
+    </div>
+  </div>
+</div>

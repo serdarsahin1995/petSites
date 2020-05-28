@@ -1,0 +1,47 @@
+<ngb-tabset [justify]="currentJustify" >
+
+    <ngb-tab>
+        <ng-template ngbTabTitle><b>Gelen</b> Kutusu({{bildirim}})</ng-template>
+        <ng-template ngbTabContent> 
+          <table class="table table-hover"  >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Gönderen</th>
+                <th scope="col">Baslik</th>
+                <th scope="col">Tarih    -    Saat</th>
+                <th scope="col">detay</th>
+                <th scope="col">cevap</th>
+              </tr>
+            </thead>
+    
+          <tbody>
+            <tr *ngFor="let obj of message;let i=index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{obj.gelen}}</td>
+              <td>{{obj.baslik}}</td>
+              <td>{{obj.Tarih}} - {{obj.Time}}</td>
+           
+              <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >Oku</button> </td>
+              <td><button type="button" class="btn btn-secondary" (click)="us.answer(obj.id)" routerLink='/answer'>Cevap Yaz</button> </td>
+            </tr>
+          </tbody>
+          </table>
+    
+          <table class="table table-hover" >
+            <thead>
+              <tr>
+                <th scope="col">{{Mesaj}}</th>
+    
+              </tr>
+            </thead>
+            <tbody>
+             
+                <td>{{mdetail2}}</td>
+              
+            </tbody>
+          </table>
+        
+        </ng-template>
+      </ngb-tab>
+</ngb-tabset>

@@ -14,6 +14,7 @@ export class SendMessageComponent implements OnInit {
   userTemp:firebase.User
   newdate :string;
   time:any;
+  ismi:any
   
 
   constructor(public user: UserService,private db:AngularFireDatabase, private fb:FormBuilder) {
@@ -41,6 +42,7 @@ export class SendMessageComponent implements OnInit {
    
      this.newdate = year + "-" + month + "-" + day;
      console.log(this.newdate)
+     this.db.object('/petOwn/' + this.id + "/name").snapshotChanges().subscribe(c=>{this.ismi=c.payload.val()})
   }
   onSubmit(from){
     console.log(from)

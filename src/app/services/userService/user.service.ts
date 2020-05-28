@@ -28,7 +28,11 @@ kisi2:any;
 emailK:any;
 emailG:any;
 rolTemp:any;
+editAdvertId:any;
 gg:firebase.User
+userT:any
+userM:any
+rolM:any
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -101,6 +105,7 @@ this.afAuth.auth.signOut();
   getCurrentUser(){
     return this.afAuth.authState;
   }
+
   getCU(){
     return this.afAuth.auth.currentUser.uid
   }
@@ -110,7 +115,8 @@ this.afAuth.auth.signOut();
         if(user){
           return true;
         }else{
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl('/register');
+          alertify.success("Lütfen Önce kayıt olunuz!");
           return false;
         }
       })
@@ -120,7 +126,7 @@ this.afAuth.auth.signOut();
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.saveUser(result.user,name);
-        this.router.navigate(['myProfil']) //kayıt yapıldıgında nereye yönlendiricegini sec 
+        this.router.navigate(['myProfil'])
       }).catch((error) => {
         alertify.alert(error.message, function(){
         });
@@ -138,25 +144,59 @@ this.afAuth.auth.signOut();
     })
   }
   getMessage(user: firebase.User){
-    if(this.isPetsitter){
-      return  this.db.list('/Petsitters/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
+    
+    console.log(this.rolM)
+    if(this.rolM=="petOwn"){
+      return  this.db.list('/petOwn/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
-    else if(this.isPetOwn){
-    return  this.db.list('/petOwn/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
-      .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    if(this.rolM=="Petsitters"){
+      return  this.db.list('/Petsitters/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }else{
+      return  this.db.list('/admin/' + user.uid + '/Mesaj').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
+     
+  }
+  mesajId(user,rol){
+    this.userM=user;
+    this.rolM=rol;
+    
+
   }
 
   getMdetail(user:firebase.User,mId){
-    return  this.db.list('/petOwn/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
-      .map(c => c.payload.val())));
+    if(this.rolM=="petOwn"){
+      return  this.db.list('/petOwn/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
+        .map(c => c.payload.val())));
+    }
+    if(this.rolM=="Petsitters"){
+      return  this.db.list('/Petsitters/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
+        .map(c => c.payload.val())));
+    }else{
+      return  this.db.list('/admin/' + user.uid + '/Mesaj/'+mId).snapshotChanges().pipe(map(changes => changes
+        .map(c => c.payload.val())));
+    }
   }
   
   messageTF(user: firebase.User, key){
-    this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).update({
+    if(this.rolM=="petOwn"){
+      this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).update({
         boolean: true,
-  })
+    })
+  }
+    else if(this.rolM=="Petsitters"){
+      this.db.object('/Petsitters/'+user.uid+'/Mesaj/'+ key).update({
+        boolean: true,
+    })
+  }
+    else{
+      this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).update({
+        boolean: true,
+    })
+  }
+    
 }
 answer(key){
   this.emailG=key
@@ -168,6 +208,7 @@ console.log(this.rolTemp)
 }
 sendMessage(key,baslık,mesaj,newdate,time,user: firebase.User){
   var x =this.db.createPushId();
+  alertify.success("Mesaj Gönderildi");
   this.db.object('/petOwn/' + key+'/Mesaj/'+x).update({
     baslik:baslık,
     Mesaj: mesaj,
@@ -176,6 +217,7 @@ sendMessage(key,baslık,mesaj,newdate,time,user: firebase.User){
     Time:time,
     gelen:this.emailK,
     id:user.uid
+    
   }).then((result)=> this.router.navigate(['myProfil']));;;
 }
 sendMessage2(key,baslık,mesaj,newdate,time,user: firebase.User){
@@ -277,6 +319,7 @@ getAllPetOwners(){
       name: this.name,
       email:user.email
 })})
+alertify.success("İstek Gönderildi");
   }
   getAllrequest(){
     return  this.db.list('/requestBeSitter').snapshotChanges().pipe(
@@ -286,6 +329,12 @@ getAllPetOwners(){
       return  this.db.list('/requestBeSitter/'+uid).snapshotChanges().pipe(
         map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()}))));
        
+    }
+    removeAdvert(key,user:firebase.User){
+      console.log(key)
+      console.log(user.uid)
+      this.db.object('/petOwn/'+user.uid +"/Adverts/"+key).remove();
+      this.db.object('/Adverts/'+key).remove();
     }
     applyBePetsitter(uid,name,email,time,newdate){
       var x =this.db.createPushId();
@@ -349,8 +398,7 @@ getAllPetOwners(){
         Sehir: Sehir,
         ilanAciklamasi:ilanAciklamasi,
       })
-
-    }
+}
     private saveFileData(fileUpload: FileUpload,keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
       var x =this.db.createPushId();
       this.db.object('/Adverts/'+x).update({
@@ -371,6 +419,8 @@ getAllPetOwners(){
         url:fileUpload.url,
         ida:keyTemp
       });
+      alertify.success("İlan oluşturuldu");
+      this.router.navigateByUrl("/OwnAdvert")
     }
     detail(uid){
       this.db.object('/Adverts/'+uid)
@@ -430,6 +480,69 @@ getAllPetOwners(){
           });
         }
       );
+    }
+    keepId(key,user){
+      this.editAdvertId=key;
+      this.userT=user.uid
+    }
+    deleteAdvert(uid,key){
+      this.db.object('/Adverts/'+key).remove();
+      this.db.object('/petOwn/'+uid+'/Adverts/'+key).remove();
+    }
+    pushFileToStorageEdit(fileUpload: FileUpload, progress: { percentage: number },key,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
+      this.keyTemp=key.uid
+      console.log(this.keyTemp)
+
+      var x =this.db.createPushId();
+      
+      const storageRef = firebase.storage().ref();
+      const uploadTask = storageRef.child(`/uploads/${fileUpload.file.name}`).put(fileUpload.file);
+      
+  
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          // in progress
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+          progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        },
+        (error) => {
+          // fail
+          console.log(error);
+        },
+        () => {
+          // success
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            console.log('File available at', downloadURL);
+            fileUpload.url = downloadURL;
+            fileUpload.name = fileUpload.file.name;
+             
+            this.saveFileDataEdit(fileUpload,this.keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi);
+          });
+        }
+      );
+    }
+    private saveFileDataEdit(fileUpload: FileUpload,keyTemp,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
+      
+      this.db.object('/Adverts/'+this.editAdvertId).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+        url:fileUpload.url,
+        ida:keyTemp
+      });
+      this.db.object('/petOwn/'+ keyTemp+'/Adverts/'+this.editAdvertId).update({
+        Cinsi: Cinsi,
+        Cinsiyet:Cinsiyet,
+        yas:yas,
+        Sehir: Sehir,
+        ilanAciklamasi:ilanAciklamasi,
+        url:fileUpload.url,
+        ida:keyTemp
+      });
+      alertify.success("İlan Güncellendi");
+      this.router.navigateByUrl("/OwnAdvert")
     }
     
     getFileUploads(numberItems): AngularFireList<FileUpload> {

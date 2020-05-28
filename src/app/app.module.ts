@@ -29,6 +29,9 @@ import { SendMessage2Component } from './message/send-message2/send-message2.com
 import { AnswerComponent } from './message/answer/answer.component';
 import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { EditAdvertComponent } from './pets/edit-advert/edit-advert.component';
+import { GetMessageComponent } from './message/get-message/get-message.component';
+import { MessageComponent } from './message/message/message.component';
 
 
 
@@ -55,6 +58,9 @@ import { MainPageComponent } from './main-page/main-page.component';
     AnswerComponent,
     AdminPageComponent,
     MainPageComponent,
+    EditAdvertComponent,
+    GetMessageComponent,
+    MessageComponent,
    
   ],
   imports: [

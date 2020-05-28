@@ -27,19 +27,19 @@
 
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" routerLink="/message">Mesaj</a>
         <a class="p-2 text-muted" routerLink="/petSitter">Hayvan Bakıcıları</a>
         <a class="p-2 text-muted" routerLink="/pets">Hayvanlar</a>
         <a class="p-2 text-muted" routerLink='/bakıcıol' *ngIf="(user.isPetOwn | async)">Bakıcı Ol</a>
-        <a class="p-2 text-muted" routerLink='/OwnAdvert'>İlanlarım</a>
+        <a class="p-2 text-muted" routerLink='/OwnAdvert'*ngIf="user.uid | async as uid">İlanlarım</a>
         <a class="p-2 text-muted" routerLink="/usersPage" *ngIf="(user.isAdmin | async)">Kişiler</a>
         <a class="p-2 text-muted" routerLink="/bakıcıolmakisteyenler" *ngIf="(user.isAdmin | async)">istekler</a>
       </nav>
     </div>
     <div class="jumbotron p-3 p-md-4 text-white rounded bg-dark">
-      <div class="col-md-8 px-0">
-        <p class="lead mb-0" *ngIf="user.uid | async as uid"><a href="#"
-            class="text-white font-weight-bold">{{userTemp.email}}</a></p>
-      </div>
+     
+        <p class="lead mb-0" *ngIf="user.uid | async as uid" id="text"><a   routerLink="/myProfil" class="text-white font-weight-bold" >{{userTemp.email}}</a></p>
+      
     </div>
 
     <router-outlet></router-outlet>

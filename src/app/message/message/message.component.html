@@ -1,0 +1,3 @@
+<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'admin')" routerLink='/getMessage' *ngIf="(admin==true)">Admin</button> </td>
+<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'petOwn')" routerLink='/getMessage' *ngIf="(petOwn==true)">petOwn</button> </td>
+<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'Petsitters')" routerLink='/getMessage' *ngIf="(Petsitters==true)">Petsitters</button> </td>

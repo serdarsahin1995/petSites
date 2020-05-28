@@ -39,6 +39,7 @@ temp:any
 data:any;
 hayvansahibi:any;
 rol:any;
+a:any
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }

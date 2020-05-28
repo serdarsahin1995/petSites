@@ -22,6 +22,10 @@ import { SendMessage2Component } from './message/send-message2/send-message2.com
 import { AnswerComponent } from './message/answer/answer.component';
 import { AdminPageComponent } from './user-profil/admin-page/admin-page.component';
 import {MainPageComponent} from './main-page/main-page.component'
+import { EditAdvertComponent } from './pets/edit-advert/edit-advert.component';
+import { GetMessageComponent } from './message/get-message/get-message.component';
+import { MessageComponent } from './message/message/message.component';
+
 
 const routes: Routes = [
 	{ path: '',   redirectTo: '/mainpage', pathMatch: 'full' },
@@ -31,20 +35,23 @@ const routes: Routes = [
 	{path: "register", component: RegisterUserComponent},
 	{path : "forgotPassword",component:ForgotPasswordComponent},
 	{path : "editProfil",component:UserEditComponent},
-	{path : "myProfil",component:MyProfilComponent},
+	{path : "myProfil",component:MyProfilComponent,canActivate:[UserService]},
 	{path: "petSitter", component:PetSitterComponent},
 	{path: "pets", component:PetsComponent},
-	{path: "bakıcıol", component:BePetsitterComponent},
-	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent},
+	{path: "bakıcıol", component:BePetsitterComponent,canActivate:[UserService]},
+	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent,canActivate:[UserService]},
 	{path: "sitterProfil",component:PetsitterProfilComponent},
 	{path: "advert", component:AdvertComponent},
 	{path: "detail",component:DetailComponent},
-	{path: "OwnAdvert", component:OwnPetComponent},
-	{path:"editMyProfil",component:EditProfilComponent},
-	{path:"sendMesssage", component:SendMessageComponent},
-	{path:"sendMessage2", component:SendMessage2Component},
-	{path:"answer", component:AnswerComponent},
-	{path:"usersPage", component:AdminPageComponent},
+	{path: "OwnAdvert", component:OwnPetComponent,canActivate:[UserService]},
+	{path:"editMyProfil",component:EditProfilComponent,canActivate:[UserService]},
+	{path:"sendMesssage", component:SendMessageComponent,canActivate:[UserService]},
+	{path:"sendMessage2", component:SendMessage2Component,canActivate:[UserService]},
+	{path:"answer", component:AnswerComponent,canActivate:[UserService]},
+	{path:"usersPage", component:AdminPageComponent,canActivate:[UserService]},
+	{path:"editAdvert", component:EditAdvertComponent,canActivate:[UserService]},
+	{path:"getMessage", component:GetMessageComponent,canActivate:[UserService]},
+	{path: "message", component:MessageComponent,canActivate:[UserService]},
 	  {path:"app", component:AppComponent},
 	  
 

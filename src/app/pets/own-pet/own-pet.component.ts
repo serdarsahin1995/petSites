@@ -24,9 +24,17 @@ export class OwnPetComponent implements OnInit {
   ngOnInit() {
 
     this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
+    
     this.afAuth.user.subscribe(user=>this.us.getOwnPet(user).subscribe(m=>this.temp=m));
     console.log(this.temp)
    
+  }
+  delete(key){
+ 
+    this.us.removeAdvert(key,this.userTemp)
+  }
+  edit(key){
+  this.us.keepId(key,this.userTemp)
   }
 
 }

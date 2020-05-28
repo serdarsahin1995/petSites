@@ -24,49 +24,7 @@ ogretmen:boolean=false;
   ngOnInit() {
     this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
   
-    this.db.list('/admin/').snapshotChanges().subscribe(items=>{
-      items.forEach(values => {
-       let key = values.key;
-       if(this.userTemp.uid==key){
-        this.admin=true;
-        console.log(key)
-        console.log(this.userTemp.uid)
-       }     
-     });
-    });
-    this.db.list('/ogrenciIsleri/').snapshotChanges().subscribe(items=>{
-      items.forEach(values => {
-       let key = values.key;
-       if(this.userTemp.uid==key){
-        this.ogrencisleri=true;
-        console.log(key)
-        console.log(this.userTemp.uid)
-       }     
-     });
-  
-    });
-    this.db.list('/ogrenci/').snapshotChanges().subscribe(items=>{
-      items.forEach(values => {
-       let key = values.key;
-       if(this.userTemp.uid==key){
-        this.ogrenci=true;
-        console.log(key)
-        console.log(this.userTemp.uid)
-       }     
-     });
-  
-    });
-    this.db.list('/ogretmen/').snapshotChanges().subscribe(items=>{
-      items.forEach(values => {
-       let key = values.key;
-       if(this.userTemp.uid==key){
-        this.ogretmen=true;
-        console.log(key)
-        console.log(this.userTemp.uid)
-       }     
-     });
-  
-    });
+    
     
     
   }

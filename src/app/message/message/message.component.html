@@ -1,3 +1,14 @@
-<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'admin')" routerLink='/getMessage' *ngIf="(admin==true)">Admin</button> </td>
-<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'petOwn')" routerLink='/getMessage' *ngIf="(petOwn==true)">petOwn</button> </td>
-<td><button type="button" class="btn btn-secondary" (click)="user.mesajId(userTemp.uid,'Petsitters')" routerLink='/getMessage' *ngIf="(Petsitters==true)">Petsitters</button> </td>
+<div class="card" style="width: 18rem;" id="ss">
+    <img src="https://lh3.googleusercontent.com/5l79qwitjzU_635ZCyIWJuvAywnlAm6oskIioNYDP0s1FxoGaU6lTKGxSWbHuw8oZhM" class="card-img-top" alt="...">
+    
+    
+    <div class="card-body">
+      <a  class="card-link"(click)="user.mesajId(userTemp.uid,'admin')" routerLink='/getMessage' *ngIf="(admin==true)">Gelen Kutusu</a>
+      <a  class="card-link"(click)="user.mesajId(userTemp.uid,'petOwn')" routerLink='/getMessage' *ngIf="(petOwn==true) && (admin==false)">Gelen Kutusu</a>
+      <a  class="card-link"(click)="user.mesajId(userTemp.uid,'Petsitters')" routerLink='/getMessage' *ngIf="(Petsitters==true)">Gelen Kutusu </a>
+      <a class="card-link" routerLink='/contact' >İletişime geç</a> 
+    </div>
+  </div>
+
+
+

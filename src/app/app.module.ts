@@ -32,6 +32,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { EditAdvertComponent } from './pets/edit-advert/edit-advert.component';
 import { GetMessageComponent } from './message/get-message/get-message.component';
 import { MessageComponent } from './message/message/message.component';
+import { ContactComponent } from './message/contact/contact.component';
 
 
 
@@ -61,6 +62,7 @@ import { MessageComponent } from './message/message/message.component';
     EditAdvertComponent,
     GetMessageComponent,
     MessageComponent,
+    ContactComponent,
    
   ],
   imports: [

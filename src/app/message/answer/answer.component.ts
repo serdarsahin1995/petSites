@@ -42,24 +42,6 @@ constructor(public user: UserService,private db:AngularFireDatabase, private fb:
  
    this.newdate = year + "-" + month + "-" + day;
    console.log(this.newdate)
-   this.db.list('/Petsitters/').snapshotChanges().subscribe(items=>{
-    items.forEach(values => {
-     let key = values.key;
-     if(this.afAuth.auth.currentUser.uid==key){
-       this.petsitter=true;
-       this.user.rola("bakıcı")
-     }     
-   });
-  });
-  this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
-    items.forEach(values => {
-     let key = values.key;
-     if(this.afAuth.auth.currentUser.uid==key){
-      this.petOwn=true;
-       this.user.rola("hayvansahibi")
-     }     
-   });
-  });
 }
 onSubmit(from){
   console.log(from)

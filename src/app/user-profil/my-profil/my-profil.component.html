@@ -48,50 +48,7 @@
     
     </ng-template>
   </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Gelen</b> Kutusu({{bildirim}})</ng-template>
-    <ng-template ngbTabContent> 
-      <table class="table table-hover"  >
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Gönderen</th>
-            <th scope="col">Baslik</th>
-            <th scope="col">Tarih    -    Saat</th>
-            <th scope="col">detay</th>
-            <th scope="col">cevap</th>
-          </tr>
-        </thead>
-
-      <tbody>
-        <tr *ngFor="let obj of message;let i=index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{obj.gelen}}</td>
-          <td>{{obj.baslik}}</td>
-          <td>{{obj.Tarih}} - {{obj.Time}}</td>
-       
-          <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >Oku</button> </td>
-          <td><button type="button" class="btn btn-secondary" (click)="us.answer(obj.id)" routerLink='/answer'>Cevap Yaz</button> </td>
-        </tr>
-      </tbody>
-      </table>
-
-      <table class="table table-hover" >
-        <thead>
-          <tr>
-            <th scope="col">Mesaj</th>
-
-          </tr>
-        </thead>
-        <tbody>
-         
-            <td>{{mdetail2}}</td>
-          
-        </tbody>
-      </table>
-    
-    </ng-template>
-  </ngb-tab>
+ 
 
 
   <ngb-tab>
@@ -134,30 +91,5 @@
     
     </ng-template>
   </ngb-tab>
-  <ngb-tab >
-    <ng-template ngbTabTitle ><b>Iletisim kur</b></ng-template>
-    <ng-template ngbTabContent >
-      <select #tur id="aa">
-        <option value="yonetici">yonetici</option>
-        <option value="bakıcılar">bakıcılar</option>
-        <option value="hayvan sahibleri">hayvan sahibleri</option>
-        
-      </select>
-      <p id="ab"><button (click)="kisiler(tur.value)"  class="btn btn-primary">Kişileri getir</button></p>
-    
-        <div class="form-group" >
-          <label for="sel1">Kişi seç</label>
-          <select class="form-control"id="sel1" formControlName="OgrenciId" #tur2> 
-            <option *ngFor="let obj of data"  [value]="obj.key">{{obj.email}}--{{obj.name}}</option>
-          </select>
-          <button (click)="onSubmit(tur2.value)" class="btn btn-primary" routerLink='/sendMessage2' id="ac">Mesaj yaz </button>
-          <br>
-          
-        </div>
-      
-      
-     
-    </ng-template>
-  </ngb-tab>
-
+ 
 </ngb-tabset>

@@ -33,6 +33,12 @@ gg:firebase.User
 userT:any
 userM:any
 rolM:any
+userTemp:any
+admin:boolean=false;
+petOwn:boolean=false;
+Petsitters:boolean=false;
+lookpetOwn:any;
+looka:any;
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -70,7 +76,17 @@ isPetsitter:Observable<boolean>= this.uid.pipe(
     }
   })
 );
+lookpetOwner(key,key2){
+  this.lookpetOwn=key;
+  this.emailG=key2
+  console.log(this.lookpetOwn)
+}
+lookadmin(key,key2){
+this.lookpetOwn=key;
+this.emailG=key2
+console.log(this.lookpetOwn)
 
+}
 editProfil(email,uid){
   this.temp=email;
   this.editId=uid
@@ -199,8 +215,9 @@ this.afAuth.auth.signOut();
     
 }
 answer(key){
-  this.emailG=key
-  console.log(key.ıd)
+  this.emailG=key.uid
+  console.log(this.emailG)
+  
 }
 rola(key){
 this.rolTemp=key;
@@ -257,10 +274,10 @@ sendMessage2(key,baslık,mesaj,newdate,time,user: firebase.User){
   } 
 }
 answer2(key,baslık,mesaj,newdate,time,user: firebase.User){
-  console.log(key)
+  console.log(this.emailG+"lann")
   var x =this.db.createPushId();
-  console.log(this.rolTemp)
-  if(this.rolTemp=="hayvansahibi"){
+  console.log(this.lookpetOwn+"s.a")
+  if(this.lookpetOwn=="petOwn"){
     this.db.object('/petOwn/' + this.emailG+'/Mesaj/'+x).update({
       baslik:baslık,
       Mesaj: mesaj,
@@ -271,7 +288,7 @@ answer2(key,baslık,mesaj,newdate,time,user: firebase.User){
       id:user.uid
     }).then((result)=> this.router.navigate(['myProfil']));;;
   }
-  else if(this.rolTemp=="bakıcı"){
+  else if(this.lookpetOwn=="Petsitters"){
     this.db.object('/Petsitters/' + this.emailG+'/Mesaj/'+x).update({
       baslik:baslık,
       Mesaj: mesaj,

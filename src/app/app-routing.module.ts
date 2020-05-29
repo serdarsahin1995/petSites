@@ -25,6 +25,7 @@ import {MainPageComponent} from './main-page/main-page.component'
 import { EditAdvertComponent } from './pets/edit-advert/edit-advert.component';
 import { GetMessageComponent } from './message/get-message/get-message.component';
 import { MessageComponent } from './message/message/message.component';
+import { ContactComponent } from './message/contact/contact.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
 	{path:"editAdvert", component:EditAdvertComponent,canActivate:[UserService]},
 	{path:"getMessage", component:GetMessageComponent,canActivate:[UserService]},
 	{path: "message", component:MessageComponent,canActivate:[UserService]},
+	{path: "contact", component:ContactComponent,canActivate:[UserService]},
 	  {path:"app", component:AppComponent},
 	  
 

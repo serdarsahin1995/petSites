@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/userService/user.service'
 import {AngularFireAuth} from '@angular/fire/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-get-message',
@@ -20,9 +21,11 @@ bildirim =0;
 res:any;
 resArray:Array<any>;
 result:any ; result2:Array<any>;
-petOwn:any;
 rol:any
-  constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { }
+admin:boolean=false;
+petOwn:boolean=false;
+Petsitters:boolean=false;
+  constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router) { }
 
   ngOnInit() {
     this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
@@ -49,6 +52,48 @@ rol:any
     
     this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
     this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
+  }
+  answer(key2){
+    console.log(key2)
+    this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
+      items.forEach(values => {
+       let key = values.key;
+       if(key2==key){
+        this.petOwn=true;
+        this.us.lookpetOwner("petOwn",key2)
+        this.router.navigateByUrl('/answer');
+        console.log(key)
+        console.log(key2)
+       }     
+     });
+    });
+    
+    if(this.us.lookpetOwn!=true){
+      this.db.list('/admin/').snapshotChanges().subscribe(items=>{
+        items.forEach(values => {
+         let key = values.key;
+         if(key2==key){
+          this.admin=true;
+          this.us.lookadmin("admin",key2)
+          this.router.navigateByUrl('/answer');
+          console.log(key)
+          console.log(key2)
+         }     
+       });
+      });
+    }
+    this.db.list('/Petsitters/').snapshotChanges().subscribe(items=>{
+      items.forEach(values => {
+       let key = values.key;
+       if(key2==key){
+        this.Petsitters=true;
+        this.us.lookpetOwner("Petsitters",key2)
+         this.router.navigateByUrl('/answer');
+        console.log(key)
+        console.log(key2)
+       }     
+     });
+    });
   }
 
 }

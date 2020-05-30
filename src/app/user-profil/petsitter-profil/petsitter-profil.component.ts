@@ -23,12 +23,14 @@ profilPhoto:any;
 evPhoto:any;
 minD:NgbDateStruct;
 minD2:NgbDateStruct;
+takvim:any
 
 mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
   constructor(private us:UserService,private db :AngularFireDatabase,private parserFormatter: NgbDateParserFormatter,private calander : NgbCalendar,private afAuth:AngularFireAuth) {
     this.minD = this.calander.getToday();}
 
   ngOnInit() {
+    this.us.takvimPetsitter().subscribe(t => this.takvim = t);
    this.sitterUid = localStorage.getItem('key')
    this.db.object('/Petsitters/' + this.sitterUid + "/imageUrl").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
@@ -55,7 +57,8 @@ let gece=date2.diff(date1, 'days')
       tur:tur,
       cins:cins,
       yas:yas,
-      gece:gece
+      gece:gece,
+      email:this.afAuth.auth.currentUser.email
       
 })
   }

@@ -5,11 +5,11 @@
     <h1>{{name}}'in Evi</h1>
     <hr/>
    
-    <p>Mesken Şekli: {{mesken}}</p>
-    <p>Bahçe: {{bahce}}</p>
-    <p>Pet için oda: {{oda}}</p>
-    <p>Başka Pet: {{baskapet}}</p>
-    <p>Sigara içimi: {{sigara}}</p>
+    <p><b>Mesken Şekli :</b> {{mesken}}</p>
+    <p><b>Bahçe :</b> {{bahce}}</p>
+    <p><b>Pet için oda :</b> {{oda}}</p>
+    <p><b>Başka Pet :</b> {{baskapet}}</p>
+    <p><b>Sigara içimi :</b> {{sigara}}</p>
   
   </div></div>
 
@@ -58,21 +58,21 @@
   <hr/>
     </div>
     <div>
-    <label for="tur">Petimin Türü:</label>
+    <label for="tur"><b>Petimin Türü :</b></label>
     <select #tur>
       <option value="Köpek">Köpek</option>
       <option value="Kedi">Kedi</option>
     </select>
   </div>
   <div>
-    <label for="cins">Petimin Cinsiyeti:</label>
+    <label for="cins"><b>Petimin Cinsiyeti :</b></label>
     <select #cins>
       <option value="Erkek">Erkek</option>
       <option value="Dişi">Dişi</option>
     </select>
   </div>
   <div>
-    <label for="yas">Petimin Yaşı:</label>
+    <label for="yas"><b>Petimin Yaşı :</b></label>
     <select #yas>
       <option value="0-1">0-1</option>
       <option value="2-5">2-5</option>
@@ -81,10 +81,45 @@
     </select>
   </div>
   
-    <p><button (click)="reservation(tur.value,cins.value,yas.value)" >Rezervasyonda Bulun</button></p>
+    <p><button (click)="reservation(tur.value,cins.value,yas.value)" style="background-color: #8665f7;">Rezervasyonda Bulun</button></p>
 
   </div>
 
 </div>
+
+
+<div class="item3">
+  
+  <div class="table-box">
+    <h1>{{name}}'in Takvimi</h1>
+    
+    <div class="table-row table-head">
+        <div class="table-cell first-cell">
+            <p>Tür</p>
+        </div>
+        <div class="table-cell">
+            <p>Başlangıç</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>Bitiş</p>
+        </div> 
+    </div>
+  
+    <div *ngFor="let obj of takvim;let i=index">
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>{{obj.tur}}</p>
+        </div>
+        <div class="table-cell">
+            <p>{{obj.startDate}}</p>
+        </div>
+        <div class="table-cell">
+            <p >{{obj.endDate}}</p>
+        </div>   
+    </div>
+  </div>
+  
+  </div>
+  </div>
 </div>
 

@@ -40,6 +40,7 @@ data:any;
 hayvansahibi:any;
 rol:any;
 a:any
+takvim:any
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }
@@ -70,6 +71,7 @@ a:any
        let key = values.key;
        if(this.afAuth.auth.currentUser.uid==key){
          this.petsitter=true;
+         this.us.takvimPetsitter().subscribe(t => this.takvim = t);
       
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/imageUrl").snapshotChanges().subscribe(c=>{this.profilPhoto=c.payload.val()})
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/hakkında").snapshotChanges().subscribe(c=>{this.hakkinda=c.payload.val()})
@@ -151,8 +153,8 @@ a:any
     this.result2 = []
     this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+key).remove();
   }
-  applyReservation(obj){
-    this.us.applyResv(obj)
+  applyReservation(obj,fiyat){
+    this.us.applyResv(obj,fiyat)
 
   }
 

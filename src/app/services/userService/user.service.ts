@@ -39,6 +39,7 @@ petOwn:boolean=false;
 Petsitters:boolean=false;
 lookpetOwn:any;
 looka:any;
+sitterUid:any
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -606,8 +607,8 @@ alertify.success("İstek Gönderildi");
       console.log(this.kisi)
       console.log(this.messageId.name)
     }
-    applyResv(obj){
-      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj);
+    applyResv(obj,fiyat){
+      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj).then(z=>this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update({toplam:fiyat}));
       this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+obj.key).remove();
     }
     remove(key,rol){
@@ -620,6 +621,11 @@ alertify.success("İstek Gönderildi");
     }
     reddet(uid){
       this.db.object('/requestBeSitter/'+uid).remove();
+    }
+    takvimPetsitter(){
+      this.sitterUid = localStorage.getItem('key')
+      return this.db.list('/Petsitters/' +this.sitterUid+ '/applyReservations').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
 
     

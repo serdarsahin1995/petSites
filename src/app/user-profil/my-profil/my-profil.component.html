@@ -12,7 +12,7 @@
             <div class="card-body">
               <h5>{{userTemp}}</h5>
             </div>
-            <a class="btn btn-primary" href="editProfil">Profil Güncelle </a>
+            <a class="btn btn-primary" href="editProfil" style="color: white;">Profil Güncelle </a>
             <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
             
           </div>
@@ -27,8 +27,8 @@
             <p>istanbul/çekmeköy</p>
             <p class="title">Hakkında</p>
             <p>{{hakkinda}}</p>
-            <a class="btn btn-primary"   href="editMyProfil" >Profil Güncelle </a>
-            <a class="btn btn-danger" (click)="us.logout()"  href="#" >Çıkış Yap </a>
+            <a class="btn btn-primary"   href="editMyProfil" style="color: white;" >Profil Güncelle </a>
+            <a class="btn btn-danger" (click)="us.logout()" style="color: white;" href="#" >Çıkış Yap </a>
           </div>
           <div class="card2" >
             <img src="{{evPhoto}}" alt="Card image cap" style="width:100%">
@@ -41,7 +41,10 @@
             <p>Başka Pet: {{baskapet}}</p>
             <p>Sigara içimi: {{sigara}}</p>
           </div>
+
+          
         </div>
+        
     </div>
 
   
@@ -81,7 +84,7 @@
           <td>{{result2[i]}}</td>
           
        
-          <td><button type="button" class="btn btn-secondary" (click)="applyReservation(objj)" >Kabul et</button>-
+          <td><button type="button" class="btn btn-secondary" (click)="applyReservation(objj,result2[i])" >Kabul et</button>-
           <button type="button" class="btn btn-secondary"  (click)="removeReservation(objj.key)">Reddet</button> </td>
         </tr>
           
@@ -89,6 +92,62 @@
       </tbody>
       </table>
     
+      <div class="table-box" style="padding-top: 200px;">
+        <h1 style="text-align: center;"> Kabul Edilen Rezervasyonlar</h1>
+        
+        <div class="table-row table-head">
+            <div class="table-cell ">
+                <p>Kimden</p>
+            </div>
+            <div class="table-cell">
+                <p>Başlangıç-Bitiş</p>
+            </div>
+            <div class="table-cell">
+              <p>Tür</p>
+          </div>
+          <div class="table-cell">
+            <p>Cinsiyet</p>
+        </div>
+        <div class="table-cell">
+          <p>Yaş</p>
+      </div>
+      <div class="table-cell">
+        <p>Kaç Gece</p>
+    </div>
+    <div class="table-cell last-cell">
+      <p>Toplam Tutar</p>
+  </div>
+           
+              
+        </div>
+      
+        <div *ngFor="let obj of takvim;let i=index">
+        <div class="table-row">
+            <div class="table-cell first-cell">
+                <p>{{obj.email}}</p>
+            </div>
+            <div class="table-cell">
+                <p>{{obj.startDate}}-{{obj.endDate}}</p>
+            </div>
+            <div class="table-cell">
+                <p >{{obj.tur}}</p>
+            </div> 
+            <div class="table-cell">
+              <p >{{obj.cins}}</p>
+          </div>  
+          <div class="table-cell">
+            <p >{{obj.yas}}</p>
+        </div> 
+        <div class="table-cell">
+          <p >{{obj.gece}}</p>
+      </div>
+      <div class="table-cell last-cell">
+        <p>{{obj.toplam}}</p>
+    </div> 
+        </div>
+      </div>
+      
+      </div>
     </ng-template>
   </ngb-tab>
  

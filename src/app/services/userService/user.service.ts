@@ -366,13 +366,15 @@ alertify.success("İstek Gönderildi");
   })
   this.db.object('/Petsitters/' + uid+'/Mesaj/'+x).update({
     baslik:"Kabul Edildiniz",
-    Mesaj: "mesaj",
+    Mesaj: "Lütfen Profilininiz Güncelleyiniz",
     Tarih:newdate,
     boolean:false,
     Time:time,
     gelen:"MyPetSitter",
     id:uid
   }).then((result)=> this.router.navigate(['myProfil']));;;
+  this.db.object('/petOwn/'+uid).remove();
+  this.db.object('/requestBeSitter/'+uid).remove();
     }
     setKey(key){
       localStorage.setItem('key',key)
@@ -456,6 +458,7 @@ alertify.success("İstek Gönderildi");
         hakkında: hakkinda,
         gecelik:gecelik
       })
+      alertify.success("Profil Güncellendi");
     }
     
     evBilgi(mesken,bahce,oda,baskapet,sigara,key){
@@ -466,6 +469,7 @@ alertify.success("İstek Gönderildi");
         baskapet: baskapet,
         sigara:sigara,
       })
+      alertify.success("Ev bilgisi Güncellendi");
     }
     pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number },key,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
       this.keyTemp=key.uid
@@ -601,6 +605,7 @@ alertify.success("İstek Gönderildi");
       this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/'+path).update({imageUrl:fileUpload.url});
     }
     }
+    
     messageSend(key,kisit){
       this.messageId=key
       this.kisi=kisit
@@ -612,7 +617,15 @@ alertify.success("İstek Gönderildi");
       this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+obj.key).remove();
     }
     remove(key,rol){
-      
+      console.log(rol)
+      if(rol=="yonetici"){
+  
+        this.db.object('/admin/'+key).remove();
+      }
+      if(rol=="bakıcılar"){
+  
+        this.db.object('/Petsitters/'+key).remove();
+      }
       if(rol=="hayvan sahibleri"){
   
         this.db.object('/petOwn/'+key).remove();

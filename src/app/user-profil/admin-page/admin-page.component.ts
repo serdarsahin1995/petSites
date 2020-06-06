@@ -32,7 +32,10 @@ export class AdminPageComponent implements OnInit {
     }
   }
   remove(key){  
-    this.us.remove(key,this.rol)
+    if(window.confirm('Kişiyi silmek istediğinize enim misiniz?')){
+      this.us.remove(key,this.rol)
+    }
+  
   }
 
 }

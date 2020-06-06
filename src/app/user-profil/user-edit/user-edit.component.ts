@@ -72,5 +72,6 @@ export class UserEditComponent implements OnInit {
 }
 changeProfilInfo(namee){
   this.db.object(`petOwn/`+firebase.auth().currentUser.uid+'/').update({name:namee});
+  alertify.success("Profil Güncellendi");
 }
 }

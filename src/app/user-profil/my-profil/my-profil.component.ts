@@ -48,22 +48,7 @@ takvim:any
   ngOnInit() {
   
     this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp.email);
-    this.afAuth.user.subscribe(user => this.us.getMessage(user).subscribe(m => this.message=m));
-
-    this.listFalse = []
-    
-    
-    this.afAuth.user.subscribe(user => this.us.getMessage(user).subscribe(detail => {detail.forEach(c=>{
-      this.listFalse.push(c)
-    }
-    );this.listFalse.map(item=> { if(item.boolean === false){ console.log(item)
-      this.count++}this.bildirim=this.count});
-      this.listFalse=[]
-     this.count=0;}));
-
-
-    this.resArray=[]
-    this.result2=[]
+  
    
     
     this.db.list('/Petsitters/').snapshotChanges().subscribe(items=>{

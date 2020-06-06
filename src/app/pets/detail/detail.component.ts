@@ -51,7 +51,10 @@ export class DetailComponent implements OnInit {
     
   }
   delete(){
-    this.user.deleteAdvert(this.ida,this.temp)
+    if(window.confirm('İlanı kaldırmak istediğinize emin misiniz?')){
+      this.user.deleteAdvert(this.ida,this.temp)
+    }
+    
   }
 
 }

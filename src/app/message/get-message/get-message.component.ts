@@ -3,6 +3,7 @@ import {UserService} from '../../services/userService/user.service'
 import {AngularFireAuth} from '@angular/fire/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Router} from '@angular/router';
+declare let alertify:any;
 
 @Component({
   selector: 'app-get-message',
@@ -25,6 +26,8 @@ rol:any
 admin:boolean=false;
 petOwn:boolean=false;
 Petsitters:boolean=false;
+say=0;
+
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router) { }
 
   ngOnInit() {
@@ -40,7 +43,11 @@ Petsitters:boolean=false;
       this.listFalse.push(c)
     }
     );this.listFalse.map(item=> { if(item.boolean === false){ 
-      this.count++}this.bildirim=this.count});
+      this.count++
+    if(this.count!=0 && this.say==0){
+      alertify.success("Yeni Mesaj Var");
+      this.say=this.say+1;
+    }}this.bildirim=this.count});
       this.listFalse=[]
      this.count=0;}));
 

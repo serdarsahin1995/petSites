@@ -41,7 +41,7 @@ const routes: Routes = [
 	{path: "pets", component:PetsComponent},
 	{path: "bakıcıol", component:BePetsitterComponent,canActivate:[UserService]},
 	{path: "bakıcıolmakisteyenler",component:ResponseRequestComponent,canActivate:[UserService]},
-	{path: "sitterProfil",component:PetsitterProfilComponent},
+	{path: "sitterProfil",component:PetsitterProfilComponent,canActivate:[UserService]},
 	{path: "advert", component:AdvertComponent},
 	{path: "detail",component:DetailComponent},
 	{path: "OwnAdvert", component:OwnPetComponent,canActivate:[UserService]},

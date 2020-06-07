@@ -42,7 +42,7 @@
        
         <button (click)="upload('yok')" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
     </div>
-    <button type="onSubmit" class="btn btn-primary" routerLink='/myProfil'>Bilgileri Güncelle </button>
+    <button type="onSubmit" class="btn btn-primary">Bilgileri Güncelle </button>
 </form>
 <h1>Ev Bilgileri</h1>
 <form [formGroup]="evForm" (ngSubmit)="onSubmit2(evForm.value)">
@@ -88,5 +88,5 @@
        
         <button (click)="upload('evBilgi')" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
     </div>
-    <button type="onSubmit" class="btn btn-primary" routerLink='/myProfil'>Bilgileri Güncelle </button>
+    <button type="onSubmit" class="btn btn-primary">Bilgileri Güncelle </button>
 </form>

@@ -458,7 +458,6 @@ alertify.success("İstek Gönderildi");
         hakkında: hakkinda,
         gecelik:gecelik
       })
-      alertify.success("Profil Güncellendi");
     }
     
     evBilgi(mesken,bahce,oda,baskapet,sigara,key){
@@ -469,7 +468,7 @@ alertify.success("İstek Gönderildi");
         baskapet: baskapet,
         sigara:sigara,
       })
-      alertify.success("Ev bilgisi Güncellendi");
+      this.router.navigateByUrl("/myProfil")
     }
     pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number },key,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
       this.keyTemp=key.uid

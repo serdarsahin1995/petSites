@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import {FileUpload} from '../../fileupload';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+declare let alertify:any;
 @Component({
   selector: 'app-edit-profil',
   templateUrl: './edit-profil.component.html',
@@ -52,12 +53,14 @@ export class EditProfilComponent implements OnInit {
     
   }
   onSubmit(from){
+    alertify.success("Güncellendi");
     if(this.regiForm.valid){
       this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,from.gecelik,this.userTemp);
       
     }
   }
   onSubmit2(from){
+    alertify.success("Güncellendi");
     console.log(this.userTemp.uid)
     if(this.evForm.valid){
       this.user.evBilgi(from.mesken,from.bahce,from.oda,from.baskapet,from.sigara,this.userTemp);

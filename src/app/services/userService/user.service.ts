@@ -40,6 +40,7 @@ Petsitters:boolean=false;
 lookpetOwn:any;
 looka:any;
 sitterUid:any
+petOwnimage:any
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -450,26 +451,26 @@ alertify.success("İstek Gönderildi");
       return  this.db.list('/petOwn/' + user.uid + '/Adverts').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
-    kisiselBilgi(isim,sehir,yas,hakkinda,gecelik,key){
+    kisiselBilgi(isim,sehir,yas,hakkinda,gecelik,mesken,bahce,oda,baskapet,sigara,petismi,petincinsiyeti,key){
       this.db.object('/Petsitters/'+key.uid).update({
         name: isim,
         adress:sehir,
         yas:yas,
         hakkında: hakkinda,
         gecelik:gecelik
-      })
-    }
-    
-    evBilgi(mesken,bahce,oda,baskapet,sigara,key){
-      this.db.object('/Petsitters/'+key.uid+'/evBilgi').update({
+      }).then(z=>this.db.object('/Petsitters/'+key.uid+'/evBilgi').update({
         mesken: mesken,
         bahce:bahce,
         oda:oda,
         baskapet: baskapet,
         sigara:sigara,
-      })
+      })).then(b=>this.db.object('/Petsitters/'+key.uid+'/petBilgi').update({
+        petismi: petismi,
+        cinsiyeti:petincinsiyeti
+      }))
       this.router.navigateByUrl("/myProfil")
     }
+    
     pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number },key,Cinsi,Cinsiyet,yas,Sehir,ilanAciklamasi) {
       this.keyTemp=key.uid
       console.log(this.keyTemp)

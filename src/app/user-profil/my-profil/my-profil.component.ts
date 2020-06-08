@@ -139,6 +139,8 @@ takvim:any
     this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+key).remove();
   }
   applyReservation(obj,fiyat){
+    this.resArray =[]
+    this.result2 = []
     this.us.applyResv(obj,fiyat)
 
   }

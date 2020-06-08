@@ -13,7 +13,6 @@ declare let alertify:any;
 })
 export class EditProfilComponent implements OnInit {
   regiForm:FormGroup;
-  evForm:FormGroup
   userTemp:firebase.User
   adverts:any
   selectedFiles: FileList;
@@ -26,16 +25,14 @@ export class EditProfilComponent implements OnInit {
       'yas':[null,Validators.required],
       'hakkinda':[null,Validators.required,],
       'gecelik':[null,Validators.required,],
+      'mesken':[null,Validators.required],
+      'bahce':[null,Validators.required],
+      'oda':[null,Validators.required],
+      'baskapet':[null,Validators.required],
+      'sigara':[null,Validators.required],
+      'petismi':[null,Validators.required],
+      'cinsiyeti':[null,Validators.required]
       })
-     
-      this.evForm= this.fb.group({
-        'mesken':[null,Validators.required],
-        'bahce':[null,Validators.required],
-        'oda':[null,Validators.required],
-        'baskapet':[null,Validators.required],
-        'sigara':[null,Validators.required],
-        })
-
    }
 
   ngOnInit() {
@@ -45,32 +42,23 @@ export class EditProfilComponent implements OnInit {
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/name").snapshotChanges().subscribe(c=>this.regiForm.get('isim').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/adress").snapshotChanges().subscribe(c=>this.regiForm.get('sehir').setValue(c.payload.val())));
     this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/yas").snapshotChanges().subscribe(c=>this.regiForm.get('yas').setValue(c.payload.val())));
-    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/bahce").snapshotChanges().subscribe(c=>this.evForm.get('bahce').setValue(c.payload.val())));
-    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/mesken").snapshotChanges().subscribe(c=>this.evForm.get('mesken').setValue(c.payload.val())));
-    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/oda").snapshotChanges().subscribe(c=>this.evForm.get('oda').setValue(c.payload.val())));
-    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>this.evForm.get('baskapet').setValue(c.payload.val())));
-    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>this.evForm.get('sigara').setValue(c.payload.val())));
-    
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/bahce").snapshotChanges().subscribe(c=>this.regiForm.get('bahce').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/mesken").snapshotChanges().subscribe(c=>this.regiForm.get('mesken').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/oda").snapshotChanges().subscribe(c=>this.regiForm.get('oda').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>this.regiForm.get('baskapet').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>this.regiForm.get('sigara').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/petBilgi/petismi").snapshotChanges().subscribe(c=>this.regiForm.get('petismi').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/Petsitters/' + userTemp.uid + "/petBilgi/cinsiyeti").snapshotChanges().subscribe(c=>this.regiForm.get('cinsiyeti').setValue(c.payload.val())));
   }
   onSubmit(from){
     alertify.success("Güncellendi");
     if(this.regiForm.valid){
-      this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,from.gecelik,this.userTemp);
-      
-    }
-  }
-  onSubmit2(from){
-    alertify.success("Güncellendi");
-    console.log(this.userTemp.uid)
-    if(this.evForm.valid){
-      this.user.evBilgi(from.mesken,from.bahce,from.oda,from.baskapet,from.sigara,this.userTemp);
-      
+      this.user.kisiselBilgi(from.isim,from.sehir,from.yas,from.hakkinda,from.gecelik,from.mesken,from.bahce,from.oda,from.baskapet,from.sigara,from.petismi,from.cinsiyeti,this.userTemp);
     }
   }
   upload(path){
     const file = this.selectedFiles.item(0);
     this.selectedFiles = undefined;
-
     this.currentFileUpload = new FileUpload(file);
     this.user.pushStorage(this.currentFileUpload, this.progress,path);
 

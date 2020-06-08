@@ -12,7 +12,7 @@ export class ResponseRequestComponent implements OnInit {
   gBilgi:any;
   newdate :string;
   time:any;
-
+  petOwnimage:any
   constructor(private us:UserService,private db :AngularFireDatabase) { }
 
   ngOnInit() {

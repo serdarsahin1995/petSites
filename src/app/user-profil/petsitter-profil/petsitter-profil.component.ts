@@ -24,6 +24,10 @@ evPhoto:any;
 minD:NgbDateStruct;
 minD2:NgbDateStruct;
 takvim:any
+petPhoto:any
+petName:any
+petCinsiyet:any
+adress:any
 
 mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
   constructor(private us:UserService,private db :AngularFireDatabase,private parserFormatter: NgbDateParserFormatter,private calander : NgbCalendar,private afAuth:AngularFireAuth) {
@@ -41,6 +45,10 @@ mesken:any;bahce:any;baskapet:any;oda:any;sigara:any;
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/oda").snapshotChanges().subscribe(c=>{this.oda=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>{this.sigara=c.payload.val()})
    this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>{this.baskapet=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/petBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.petPhoto=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/petBilgi/petismi").snapshotChanges().subscribe(c=>{this.petName=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/petBilgi/cinsiyeti").snapshotChanges().subscribe(c=>{this.petCinsiyet=c.payload.val()})
+   this.db.object('/Petsitters/' + this.sitterUid + "/adress").snapshotChanges().subscribe(c=>{this.adress=c.payload.val()})
    this.db.object('/users/' + this.afAuth.auth.currentUser.uid + "/name").snapshotChanges().subscribe(c=>{this.userName=c.payload.val()})
    
    

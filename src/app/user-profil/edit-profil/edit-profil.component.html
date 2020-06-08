@@ -1,8 +1,8 @@
 <h1>Kişisel Bilgiler</h1>
 <form [formGroup]="regiForm" (ngSubmit)="onSubmit(regiForm.value)">
-    <div class="form-group">
+    <div class="form-group" >
         <label for="exampleInputEmail1">İsim</label>
-        <input formControlName="isim" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input formControlName="isim" class="form-control" id="exampleInputEmail1" ngModel  aria-describedby="emailHelp">
 
     </div>
     <div class="form-group">
@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Yaş</label>
-        <input formControlName="yas" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input formControlName="yas" class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp">
 
     </div>
     <div class="form-group">
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Gecelik Bakım Ücreti</label>
-        <input formControlName="gecelik" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input formControlName="gecelik" class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp">
 
     </div>
     <div *ngIf="currentFileUpload" class="progress">
@@ -42,10 +42,7 @@
        
         <button (click)="upload('yok')" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
     </div>
-    <button type="onSubmit" class="btn btn-primary">Bilgileri Güncelle </button>
-</form>
 <h1>Ev Bilgileri</h1>
-<form [formGroup]="evForm" (ngSubmit)="onSubmit2(evForm.value)">
     <div class="form-group">
         <label for="exampleInputEmail1">Mesken Şekli</label>
         <input formControlName="mesken" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -53,23 +50,31 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Bahçe</label>
-        <input formControlName="bahce" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
+        <select formControlName="bahce" class="form-control" id="bahce">
+            <option value="var">Var</option>
+            <option value="yok">Yok</option>
+          </select>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Pet için Oda</label>
-        <input formControlName="oda" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
+        <select formControlName="oda" class="form-control" id="oda">
+            <option value="var">Var</option>
+            <option value="yok">Yok</option>
+          </select>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Başka  Pet</label>
-        <input formControlName="baskapet" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
+        <select formControlName="baskapet" class="form-control" id="baska">
+            <option value="var">Var</option>
+            <option value="yok">Yok</option>
+          </select>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Sigara İçimi</label>
-        <input formControlName="sigara" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
+        <select formControlName="sigara" class="form-control" id="sigara">
+            <option value="var">Var</option>
+            <option value="yok">Yok</option>
+          </select>
     </div>
     <div *ngIf="currentFileUpload" class="progress">
         <div class="progress-bar progress-bar-info progress-bar-striped"
@@ -85,8 +90,35 @@
     </div>
     
     <div id="sa">
-       
         <button (click)="upload('evBilgi')" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
+    </div>
+    <h1>Petinizin Bilgileri</h1>
+    <div class="form-group" >
+        <label for="exampleInputEmail1">İsim</label>
+        <input formControlName="petismi" class="form-control" id="exampleInputEmail1" ngModel  aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Cinsiyeti</label>
+        <select formControlName="cinsiyeti" class="form-control" id="sigara">
+            <option value="Erkek">Erkek</option>
+            <option value="Dişi">Dişi</option>
+          </select>
+    </div>
+    <div *ngIf="currentFileUpload" class="progress">
+        <div class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+            aria-valuemin="0" aria-valuemax="100"
+            [ngStyle]="{width:progress.percentage+'%'}">
+            {{progress.percentage}}%</div>
+    </div>
+    <div id="ss">
+        <label class="btn btn-default" > <input type="file" 
+            (change)="selectFile($event)" >
+        </label>
+    </div>
+    
+    <div id="sa">
+        <button (click)="upload('petBilgi')" [disabled]="!selectedFiles" class="btn btn-primary">Fotograf Yükle </button>
     </div>
     <button type="onSubmit" class="btn btn-primary">Bilgileri Güncelle </button>
 </form>

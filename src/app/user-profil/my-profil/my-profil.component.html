@@ -84,8 +84,8 @@
           <td>{{result2[i]}}</td>
           
        
-          <td><button type="button" class="btn btn-secondary" (click)="applyReservation(objj,result2[i])" >Kabul et</button>-
-          <button type="button" class="btn btn-secondary"  (click)="removeReservation(objj.key)">Reddet</button> </td>
+          <td><button type="button" class="btn btn-success" (click)="applyReservation(objj,result2[i])" >Kabul et</button>-
+          <button type="button" class="btn btn-danger"  (click)="removeReservation(objj.key)">Reddet</button> </td>
         </tr>
           
         
@@ -127,7 +127,7 @@
                 <p>{{obj.email}}</p>
             </div>
             <div class="table-cell">
-                <p>{{obj.startDate}}-{{obj.endDate}}</p>
+                <p>{{obj.startDate}}||{{obj.endDate}}</p>
             </div>
             <div class="table-cell">
                 <p >{{obj.tur}}</p>

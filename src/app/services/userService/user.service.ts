@@ -641,8 +641,18 @@ alertify.success("İstek Gönderildi");
       console.log(this.kisi)
       console.log(this.messageId.name)
     }
-    applyResv(obj,fiyat){
-      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj).then(z=>this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update({toplam:fiyat}));
+    applyResv(obj,fiyat,time,newdate,email){
+      var x =this.db.createPushId();
+      this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update(obj).then(
+      z=>this.db.object(`Petsitters/`+firebase.auth().currentUser.uid+'/applyReservations/'+obj.key).update({toplam:fiyat}).then(message=>this.db.object('/petOwn/'+obj.key+'/Mesaj/'+x).update({
+        baslik:"Rezervasyon isteği",
+        Mesaj: "Rezervasyon isteğiniz kabul edilmiştir :) Lütfen en kısa zamanda hayvan bakıcınız ile iletişime geçiniz",
+        Tarih:newdate,
+        boolean:false,
+        Time:time,
+        gelen:email,
+        id:firebase.auth().currentUser.uid
+      })));
       this.db.object('Petsitters/'+this.afAuth.auth.currentUser.uid+"/reservations/"+obj.key).remove();
     }
     remove(key,rol){

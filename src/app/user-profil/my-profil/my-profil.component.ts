@@ -41,6 +41,9 @@ hayvansahibi:any;
 rol:any;
 a:any
 takvim:any
+time:any
+newdate:any
+applyResEmail:any
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase) { 
  
   }
@@ -67,6 +70,7 @@ takvim:any
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/evBilgi/sigara").snapshotChanges().subscribe(c=>{this.sigara=c.payload.val()})
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/evBilgi/baskapet").snapshotChanges().subscribe(c=>{this.baskapet=c.payload.val()})
          this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c=>{this.evPhoto=c.payload.val()})
+         this.db.object('/Petsitters/' + this.afAuth.auth.currentUser.uid+ "/email").snapshotChanges().subscribe(c=>{this.applyResEmail=c.payload.val()})
        }     
      });
     });
@@ -141,7 +145,18 @@ takvim:any
   applyReservation(obj,fiyat){
     this.resArray =[]
     this.result2 = []
-    this.us.applyResv(obj,fiyat)
+    var dateObj = new Date();
+    var month = ("0" + (dateObj.getMonth() + 1)).slice(-2); //months from 1-12
+    var day = ("0" + dateObj.getDate()).slice(-2)
+    var year = dateObj.getFullYear();
+    var currentdate = new Date();
+     this.time =  currentdate.getHours() + ":"
+                    + currentdate.getMinutes() + ":"
+                    + currentdate.getSeconds();
+
+   
+     this.newdate = year + "-" + month + "-" + day;
+    this.us.applyResv(obj,fiyat,this.time,this.newdate,this.applyResEmail)
 
   }
 

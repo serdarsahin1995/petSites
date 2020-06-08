@@ -108,6 +108,7 @@ this.afAuth.auth.signInWithEmailAndPassword(email, password).then((result)=> thi
   logout(){
 this.afAuth.auth.signOut();
   }
+  
   saveUser(user: firebase.User,namee) {
     if (!user) { return; }
     this.db.object('/users/' + user.uid).update({
@@ -126,6 +127,34 @@ this.afAuth.auth.signOut();
 
   getCU(){
     return this.afAuth.auth.currentUser.uid
+  }
+  unread(user:firebase.User,key){
+    if(this.rolM=="petOwn"){
+      this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).update({
+        boolean: false,
+    })
+  }
+    else if(this.rolM=="Petsitters"){
+      this.db.object('/Petsitters/'+user.uid+'/Mesaj/'+ key).update({
+        boolean: false,
+    })
+  }
+    else{
+      this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).update({
+        boolean: false,
+    })
+  }
+  }
+  deleteMessage(user:firebase.User,key){
+    if(this.rolM=="petOwn"){
+      this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).remove();
+  }
+    else if(this.rolM=="Petsitters"){
+      this.db.object('/Petsitters/'+user.uid+'/Mesaj/'+ key).remove();
+  }
+    else{
+      this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).remove();
+  }
   }
   canActivate():Observable<boolean>{
     return this.afAuth.authState.pipe(

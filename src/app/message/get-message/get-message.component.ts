@@ -3,6 +3,8 @@ import {UserService} from '../../services/userService/user.service'
 import {AngularFireAuth} from '@angular/fire/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Router} from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgModel } from '@angular/forms';
 declare let alertify:any;
 
 @Component({
@@ -27,8 +29,10 @@ admin:boolean=false;
 petOwn:boolean=false;
 Petsitters:boolean=false;
 say=0;
+title = 'appBootstrap';
+closeResult: string;
 
-  constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router) { }
+  constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router,private modalService: NgbModal) { }
 
   ngOnInit() {
     this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
@@ -55,12 +59,9 @@ say=0;
     this.resArray=[]
     this.result2=[]
   }
-  getMesDetail(mId){
-    
-    this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
-    this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
-  }
+  
   answer(key2){
+    
     console.log(key2)
     this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
       items.forEach(values => {
@@ -102,5 +103,40 @@ say=0;
      });
     });
   }
+  getMesDetail(mId){
+   
 
+    this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
+    this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
+  }
+  unread(key){
+    console.log(key)
+    this.afAuth.user.subscribe(user => this.us.unread(user,key));
+  }
+  delete(key){
+    console.log(key)
+    this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
+  }
+  open(content,mId) {
+
+    this.afAuth.user.subscribe(user => this.us.getMdetail(user,mId).subscribe(m => {this.mdetail=m,this.mdetail2=m[0],this.mdetail3=m[1]}));
+    this.afAuth.user.subscribe(user => this.us.messageTF(user,mId));
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+ 
 }
+

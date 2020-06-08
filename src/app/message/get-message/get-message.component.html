@@ -1,47 +1,70 @@
 <ngb-tabset [justify]="currentJustify" >
 
-    <ngb-tab>
-        <ng-template ngbTabTitle><b>Gelen</b> Kutusu({{bildirim}})</ng-template>
-        <ng-template ngbTabContent> 
-          <table class="table table-hover"  >
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Gönderen</th>
-                <th scope="col">Baslik</th>
-                <th scope="col">Tarih    -    Saat</th>
-                <th scope="col">detay</th>
-                <th scope="col">cevap</th>
-              </tr>
-            </thead>
-    
-          <tbody>
-            <tr *ngFor="let obj of message;let i=index">
-              <th scope="row">{{i+1}}</th>
-              <td>{{obj.gelen}}</td>
-              <td>{{obj.baslik}}</td>
-              <td>{{obj.Tarih}} - {{obj.Time}}</td>
-           
-              <td><button type="button" class="btn btn-secondary" (click)="getMesDetail(obj.key)" >Oku</button> </td>
-              <td><button type="button" class="btn btn-secondary" (click)="answer(obj.id)">Cevap Yaz</button> </td>
+  <ngb-tab>
+      <ng-template ngbTabTitle><b>Gelen</b> Kutusu({{bildirim}})</ng-template>
+      <ng-template ngbTabContent> 
+        <table class="table table-hover"  >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Gönderen</th>
+              <th scope="col">Baslik</th>
+              <th scope="col">Tarih    -    Saat</th>
+              <th scope="col">detay</th>
             </tr>
-          </tbody>
-          </table>
-    
-          <table class="table table-hover" >
-            <thead>
-              <tr>
-                <th scope="col">{{Mesaj}}</th>
-    
-              </tr>
-            </thead>
-            <tbody>
-             
-                <td>{{mdetail2}}</td>
-              
-            </tbody>
-          </table>
-        
-        </ng-template>
-      </ngb-tab>
+          </thead>
+  
+        <tbody>
+          <tr *ngFor="let obj of message;let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{obj.gelen}}</td>
+            <td>{{obj.baslik}}</td>
+            <td>{{obj.Tarih}} - {{obj.Time}}</td>
+            
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <td><button class="btn btn-secondary" (click)="open(mymodal,obj.key)">Oku</button></td>
+            <td><button class="btn btn-secondary" (click)="delete(obj.key)">Mesajı Sil</button></td>
+               
+            <ng-template #mymodal let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">{{obj.gelen}}</h4>
+               
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {{mdetail2}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close(unread(obj.key))">Okunmadı Olarak Isaretle</button>
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close(answer(obj.id))">Cevap Yaz</button>
+              </div>
+            </ng-template>
+
+          </tr>
+        </tbody>
+        </table>
+      </ng-template>
+    </ngb-tab>
 </ngb-tabset>
+

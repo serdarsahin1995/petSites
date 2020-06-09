@@ -101,7 +101,7 @@ editProfil(email,uid){
 
 this.afAuth.auth.signInWithEmailAndPassword(email, password).then((result)=> { if (result.user.emailVerified !== true) {
   this.SendVerificationMail();
-  window.alert('Please validate your email address. Kindly check your inbox.'),this.logout;}else{this.router.navigate(['myProfil'])}}).catch((error) => {
+  alertify.alert('Lütfen önce email adresini onaylayın'),this.logout();}else{this.router.navigate(['myProfil'])}}).catch((error) => {
   alertify.alert(error.message, function(){
   });
 });
@@ -177,8 +177,9 @@ this.afAuth.auth.signOut();
       })
     )
   }
-  SignUp(email, password,name) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+  SignUp(email, password,name,password2) {
+    if(password==password2){
+      return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.saveUser(result.user,name);
         this.SendVerificationMail();
@@ -186,6 +187,11 @@ this.afAuth.auth.signOut();
         alertify.alert(error.message, function(){
         });
       })
+    }
+    else{
+      alertify.success("Şifreler eşleşmiyor!");
+    }
+    
   }
 
   ForgotPassword(passwordResetEmail) {

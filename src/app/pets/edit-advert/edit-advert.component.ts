@@ -24,6 +24,7 @@ export class EditAdvertComponent implements OnInit {
   ilanAciklamasi:any
   yas:any
 
+
   constructor(public user: UserService, private fb:FormBuilder,private db:AngularFireDatabase) {
     this.regiForm= this.fb.group({
       'Cinsi':[null,Validators.required],
@@ -36,8 +37,14 @@ export class EditAdvertComponent implements OnInit {
 
   ngOnInit() {
     this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
+    
     this.userGel=this.user.userT
     this.Uid=this.user.editAdvertId;
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid+"/Cinsi").snapshotChanges().subscribe(c=>this.regiForm.get('Cinsi').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid+"/Cinsiyet").snapshotChanges().subscribe(c=>this.regiForm.get('Cinsiyet').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid+"/Sehir").snapshotChanges().subscribe(c=>this.regiForm.get('Sehir').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid+"/ilanAciklamasi").snapshotChanges().subscribe(c=>this.regiForm.get('ilanAciklamasi').setValue(c.payload.val())));
+    this.user.getCurrentUser().subscribe(userTemp=>this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid+"/yas").snapshotChanges().subscribe(c=>this.regiForm.get('yas').setValue(c.payload.val())));
     console.log(this.userGel)
     console.log(this.Uid)
     this.db.object('/petOwn/' + this.userGel + "/Adverts/"+ this.Uid +"/Cinsi").snapshotChanges().subscribe(c=>{this.cinsi=c.payload.val()})

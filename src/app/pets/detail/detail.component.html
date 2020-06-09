@@ -2,14 +2,14 @@
   <div class="card" style="width: 30rem;">
     <img src="{{url}}" class="card-img-top" alt="{{name}}">
     <div class="card-body">
-      <h5 class="card-title">{{cins}}</h5>
+      <h5 class="card-title">Cinsi; {{cins}}</h5>
 
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{Cinsiyet}}</li>
-      <li class="list-group-item">{{yas}}</li>
-      <li class="list-group-item">{{Sehir}}</li>
-      <li class="list-group-item">{{ilanAciklamasi}}</li>
+      <li class="list-group-item">Cinsiyet; {{Cinsiyet}}</li>
+      <li class="list-group-item">Yaşı; {{yas}}</li>
+      <li class="list-group-item">Şehir; {{Sehir}}</li>
+      <li class="list-group-item">İlanAciklamasi; {{ilanAciklamasi}}</li>
     </ul>
     <div class="card-body">
       <a routerLink='/sendMesssage' class="card-link" (click)="user.messageSend(ida)">İletisime Geç</a>

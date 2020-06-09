@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {UserService} from '../../services/userService/user.service';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-send-message2',
@@ -14,8 +15,11 @@ export class SendMessage2Component implements OnInit {
   userTemp:firebase.User
   newdate :string;
   time:any;
+  mesajId:any
+  rol:any
+  isim:any
 
-  constructor(public user: UserService,private db:AngularFireDatabase, private fb:FormBuilder) {
+  constructor(public user: UserService,private db:AngularFireDatabase, private fb:FormBuilder,private afAuth: AngularFireAuth) {
     this.regiForm= this.fb.group({
       
       'baslık' :[null,Validators.required],
@@ -25,6 +29,17 @@ export class SendMessage2Component implements OnInit {
    }
 
   ngOnInit() {
+    this.mesajId=this.user.messageId
+    this.rol=this.user.kisi
+    if(this.rol=="yonetici"){
+      this.db.object('/admin/' + this.mesajId+ "/name").snapshotChanges().subscribe(c=>{this.isim=c.payload.val()})
+    }
+    else if(this.rol=="hayvan sahibleri"){
+      this.db.object('/petOwn/' + this.mesajId+ "/name").snapshotChanges().subscribe(c=>{this.isim=c.payload.val()})
+    }
+    else{
+      this.db.object('/Petsitters/' + this.mesajId+ "/name").snapshotChanges().subscribe(c=>{this.isim=c.payload.val()})
+    }
     this.user.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
     this.id=this.user.messageId
 

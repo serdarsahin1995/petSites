@@ -10,26 +10,28 @@
         
             
                 <div class="form-group">
-                  <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" #userN required>
+                  <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="İsim" #userN required>
                 </div>
           
               
           
   
             <div class="form-group">
-              <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" #userEmail required>
+              <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Adresi" #userEmail required>
             </div>
   
             
         
                 <div class="form-group">
-                  <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" #userPwd required>
+                  <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Şifre" #userPwd required>
                 </div>
-            
+                <div class="form-group">
+                  <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Tekrar Şifre" #userPwd2 required>
+                </div>
           
           
             
-            <input type="submit" value="Register" class="btn btn-info btn-block" (click)="us.SignUp(userEmail.value, userPwd.value,userN.value)">
+            <input type="submit" value="Register" class="btn btn-info btn-block" (click)="us.SignUp(userEmail.value, userPwd.value,userN.value,userPwd2.value)">
           
           </form>
         </div>

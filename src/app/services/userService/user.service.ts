@@ -99,11 +99,19 @@ editProfil(email,uid){
     }
   login(email, password){
 
-this.afAuth.auth.signInWithEmailAndPassword(email, password).then((result)=> this.router.navigate(['myProfil'])).catch((error) => {
+this.afAuth.auth.signInWithEmailAndPassword(email, password).then((result)=> { if (result.user.emailVerified !== true) {
+  this.SendVerificationMail();
+  window.alert('Please validate your email address. Kindly check your inbox.'),this.logout;}else{this.router.navigate(['myProfil'])}}).catch((error) => {
   alertify.alert(error.message, function(){
   });
 });
 
+  }
+  SendVerificationMail() {
+    return this.afAuth.auth.currentUser.sendEmailVerification()
+    .then(() => {
+      this.logout();
+    })
   }
   logout(){
 this.afAuth.auth.signOut();
@@ -173,7 +181,7 @@ this.afAuth.auth.signOut();
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.saveUser(result.user,name);
-        this.router.navigate(['myProfil'])
+        this.SendVerificationMail();
       }).catch((error) => {
         alertify.alert(error.message, function(){
         });

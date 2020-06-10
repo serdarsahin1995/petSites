@@ -41,6 +41,7 @@ lookpetOwn:any;
 looka:any;
 sitterUid:any
 petOwnimage:any
+getUid53:any
 private basePath = '/uploads';
 uid = this.afAuth.authState.pipe(
   map(authState => {
@@ -427,8 +428,11 @@ alertify.success("İstek Gönderildi");
   this.db.object('/requestBeSitter/'+uid).remove();
     }
     setKey(key){
-      localStorage.setItem('key',key)
-      this.getUid = key;
+     // localStorage.setItem('key',key)
+      this.getUid53 = key;
+    }
+    c(){
+      return this.getUid53
     }
     Edit(key){
       this.getUid2 = key;
@@ -698,7 +702,10 @@ alertify.success("İstek Gönderildi");
       return this.db.list('/Petsitters/' +this.afAuth.auth.currentUser.uid+ '/applyReservations').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
-
+    takvimPetsitter2(){
+      return this.db.list('/Petsitters/' +this.getUid53+ '/applyReservations').snapshotChanges().pipe(map(changes => changes
+        .map(c => ({key: c.payload.key, ...c.payload.val()}))));
+    }
     
 }
 

@@ -36,8 +36,8 @@ export class PetsitterProfilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.us.takvimPetsitter().subscribe(t => this.takvim = t);
-    this.sitterUid = localStorage.getItem('key')
+    this.us.takvimPetsitter2().subscribe(t => this.takvim = t);
+    this.sitterUid = this.us.c()
     this.db.object('/Petsitters/' + this.sitterUid + "/imageUrl").snapshotChanges().subscribe(c => { this.profilPhoto = c.payload.val() })
     this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c => { this.evPhoto = c.payload.val() })
     this.db.object('/Petsitters/' + this.sitterUid + "/hakkında").snapshotChanges().subscribe(c => { this.hakkinda = c.payload.val() })

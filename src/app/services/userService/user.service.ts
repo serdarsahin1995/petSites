@@ -695,8 +695,7 @@ alertify.success("İstek Gönderildi");
       this.db.object('/requestBeSitter/'+uid).remove();
     }
     takvimPetsitter(){
-      this.sitterUid = localStorage.getItem('key')
-      return this.db.list('/Petsitters/' +this.sitterUid+ '/applyReservations').snapshotChanges().pipe(map(changes => changes
+      return this.db.list('/Petsitters/' +this.afAuth.auth.currentUser.uid+ '/applyReservations').snapshotChanges().pipe(map(changes => changes
         .map(c => ({key: c.payload.key, ...c.payload.val()}))));
     }
 

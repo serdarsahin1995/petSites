@@ -131,6 +131,10 @@ tempa:any;
     if(window.confirm("silmek istediğine emin misin?")){
       this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
     }
+    if(this.bildirim==-1){
+      this.bildirim=this.bildirim+1
+    }
+    
     
     
    

@@ -154,7 +154,7 @@ this.afAuth.auth.signOut();
   }
   }
   deleteMessage(user:firebase.User,key){
-    if(window.confirm("silmek istediğine emin misin?")){
+    
       if(this.rolM=="petOwn"){
         this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).remove();
     }
@@ -164,7 +164,7 @@ this.afAuth.auth.signOut();
       else{
         this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).remove();
     }
-    }
+    
   }
   canActivate():Observable<boolean>{
     return this.afAuth.authState.pipe(
@@ -185,10 +185,14 @@ this.afAuth.auth.signOut();
       .then((result) => {
         this.saveUser(result.user,name);
         this.SendVerificationMail();
+        alertify.success(email+" emailinizi kontrol ediniz!");
+        this.router.navigateByUrl("/mainpage");
       }).catch((error) => {
         alertify.alert(error.message, function(){
         });
-      })
+      }
+      )
+      
     }
     else{
       alertify.success("Şifreler eşleşmiyor!");

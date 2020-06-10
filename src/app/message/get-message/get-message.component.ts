@@ -31,6 +31,7 @@ Petsitters:boolean=false;
 say=0;
 title = 'appBootstrap';
 closeResult: string;
+temp:boolean=false;
 
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router,private modalService: NgbModal) { }
 
@@ -48,16 +49,17 @@ closeResult: string;
     }
     );this.listFalse.map(item=> { if(item.boolean === false){ 
       this.count++
-    if(this.count!=0 && this.say==0){
-      alertify.success("Yeni Mesaj Var");
-      this.say=this.say+1;
-    }}this.bildirim=this.count});
-      this.listFalse=[]
-     this.count=0;}));
+      this.temp=false;
+      console.log(this.count+"gell")
+    }this.bildirim=this.count 
+    });
+    this.listFalse=[]
+    this.count=0; }));
 
 
     this.resArray=[]
     this.result2=[]
+  
   }
   
   answer(key2){
@@ -115,7 +117,11 @@ closeResult: string;
   }
   delete(key){
     console.log(key)
-    this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
+    if(window.confirm("silmek istediğine emin misin?")){
+      this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
+      this.bildirim=this.bildirim-1
+    }
+   
   }
   open(content,mId) {
 

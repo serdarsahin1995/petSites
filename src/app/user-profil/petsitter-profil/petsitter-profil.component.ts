@@ -29,6 +29,8 @@ export class PetsitterProfilComponent implements OnInit {
   petName: any
   petCinsiyet: any
   adress: any
+  userTemp:any
+  petOwn:boolean=false;
 
   mesken: any; bahce: any; baskapet: any; oda: any; sigara: any;
   constructor(private us: UserService, private db: AngularFireDatabase, private parserFormatter: NgbDateParserFormatter, private calander: NgbCalendar, private afAuth: AngularFireAuth) {
@@ -37,6 +39,17 @@ export class PetsitterProfilComponent implements OnInit {
 
   ngOnInit() {
     this.us.takvimPetsitter2().subscribe(t => this.takvim = t);
+    this.us.getCurrentUser().subscribe(userTemp=>this.userTemp=userTemp);
+    this.db.list('/petOwn/').snapshotChanges().subscribe(items=>{
+      items.forEach(values => {
+       let key = values.key;
+       if(this.userTemp.uid==key){
+        this.petOwn=true;
+        console.log(key)
+        console.log(this.userTemp.uid)
+       }     
+     });
+    });
     this.sitterUid = this.us.c()
     this.db.object('/Petsitters/' + this.sitterUid + "/imageUrl").snapshotChanges().subscribe(c => { this.profilPhoto = c.payload.val() })
     this.db.object('/Petsitters/' + this.sitterUid + "/evBilgi/imageUrl").snapshotChanges().subscribe(c => { this.evPhoto = c.payload.val() })

@@ -83,7 +83,7 @@
     </select>
   </div>
   
-    <p><button (click)="reservation(tur.value,cins.value,yas.value)" style="background-color: #8665f7;">Rezervasyonda Bulun</button></p>
+    <p><button (click)="reservation(tur.value,cins.value,yas.value)" style="background-color: #8665f7;" *ngIf="(petOwn==true)">Rezervasyonda Bulun</button></p>
 
   </div>
 

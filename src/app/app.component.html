@@ -32,7 +32,7 @@
         <a class="p-2 text-muted" routerLink="/petSitter">Hayvan Bakıcıları</a>
         <a class="p-2 text-muted" routerLink="/pets">Hayvan Sahiplendirme</a>
         <a class="p-2 text-muted" routerLink='/bakıcıol' *ngIf="(user.isPetOwn | async)">Bakıcı Ol</a>
-        <a class="p-2 text-muted" routerLink='/OwnAdvert'*ngIf="user.uid | async as uid">İlanlarım</a>
+        <a class="p-2 text-muted" routerLink='/OwnAdvert'*ngIf="(user.isPetOwn | async)">İlanlarım</a>
         <a class="p-2 text-muted" routerLink="/usersPage" *ngIf="(user.isAdmin | async)">Kişiler</a>
         <a class="p-2 text-muted" routerLink="/bakıcıolmakisteyenler" *ngIf="(user.isAdmin | async)">istekler</a>
       </nav>

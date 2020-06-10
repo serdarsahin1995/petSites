@@ -8,7 +8,6 @@
     <div class="form-group">
         <label for="exampleInputEmail1">Şehir</label>
         <select formControlName="sehir" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
-            
             <option value="İstanbul" >İstanbul</option>
             <option value="Ankara">Ankara</option>
             <option value="İzmir">İzmir</option>
@@ -108,14 +107,9 @@
         <input formControlName="gecelik" class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp">
 
     </div>
-    <div *ngIf="currentFileUpload" class="progress">
-        <div class="progress-bar progress-bar-info progress-bar-striped"
-            role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-            aria-valuemin="0" aria-valuemax="100"
-            [ngStyle]="{width:progress.percentage+'%'}">
-            {{progress.percentage}}%</div>
-    </div>
+    
     <div id="ss">
+        <p>Profil Fotografı</p>
         <label class="btn btn-default" > <input type="file" 
             (change)="selectFile($event)" >
         </label>
@@ -159,14 +153,9 @@
             <option value="yok">Yok</option>
           </select>
     </div>
-    <div *ngIf="currentFileUpload" class="progress">
-        <div class="progress-bar progress-bar-info progress-bar-striped"
-            role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-            aria-valuemin="0" aria-valuemax="100"
-            [ngStyle]="{width:progress.percentage+'%'}">
-            {{progress.percentage}}%</div>
-    </div>
+    
     <div id="ss">
+        <p>Evin Fotografı</p>
         <label class="btn btn-default" > <input type="file" 
             (change)="selectFile($event)" >
         </label>
@@ -187,14 +176,9 @@
             <option value="Dişi">Dişi</option>
           </select>
     </div>
-    <div *ngIf="currentFileUpload" class="progress">
-        <div class="progress-bar progress-bar-info progress-bar-striped"
-            role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-            aria-valuemin="0" aria-valuemax="100"
-            [ngStyle]="{width:progress.percentage+'%'}">
-            {{progress.percentage}}%</div>
-    </div>
+  
     <div id="ss">
+        <p>Petinizin Fotografı</p>
         <label class="btn btn-default" > <input type="file" 
             (change)="selectFile($event)" >
         </label>

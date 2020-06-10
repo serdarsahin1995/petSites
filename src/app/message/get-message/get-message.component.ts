@@ -32,6 +32,7 @@ say=0;
 title = 'appBootstrap';
 closeResult: string;
 temp:boolean=false;
+tempa:any;
 
   constructor(private us : UserService,private afAuth: AngularFireAuth,private db : AngularFireDatabase,private router:Router,private modalService: NgbModal) { }
 
@@ -117,10 +118,21 @@ temp:boolean=false;
   }
   delete(key){
     console.log(key)
-    if(window.confirm("silmek istediğine emin misin?")){
-      this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
+    console.log(this.us.userM+"uid")
+    console.log(this.us.rolM+"rol")
+    this.db.object("/Petsitters/"+ this.us.userM +"/Mesaj/"+key+ "/boolean").snapshotChanges().subscribe(c => { this.tempa = c.payload.val() })
+    console.log(this.tempa)
+    if(this.tempa==undefined){
       this.bildirim=this.bildirim-1
     }
+    if(this.tempa==false){
+      this.bildirim=this.bildirim-1
+    }
+    if(window.confirm("silmek istediğine emin misin?")){
+      this.afAuth.user.subscribe(user => this.us.deleteMessage(user,key));
+    }
+    
+    
    
   }
   open(content,mId) {

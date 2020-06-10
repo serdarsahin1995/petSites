@@ -66,7 +66,8 @@
     width: 100%;
     height: 50%;
     background-color: rgba(0,0,0,0.05);
-    font-family: Arial,sans-serif;
+    font-family: "Calibri";
+    font-size: 18px;
   }
 
   .cardd {
@@ -157,8 +158,6 @@
       font-weight: 500;
   }
 .b{
-    width: 55vw;
-    height: 65vh;
     display: flex;
     align-items: center;
     justify-content: center;

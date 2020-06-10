@@ -7,10 +7,9 @@
             <img src="{{obj.imageUrl}}" class="card-img-top"alt="Card image cap" height="250px" >
        
             <div class="card-body">
-              <h5 class="card-title">İsmi: {{obj.name}}({{obj.yas}})</h5>
+              <h5 class="card-title">İsmi : {{obj.name}}({{obj.yas}})</h5>
               <p class="card-text">{{obj.Bilgi}}</p>
-              <p class="card-text">Adresi:{{obj.adress}}</p>
-              <p class="card-text">Dapibus ac facilisis in</p>
+              <p class="card-text">Adresi : {{obj.adress}}</p>
               <p class="card-text">Bakım Ücreti : {{obj.gecelik}} TL</p>
               <a class="btn btn-primary" routerLink="/sitterProfil" (click)="us.setKey(obj.key)" >Profile Git</a>
             </div>

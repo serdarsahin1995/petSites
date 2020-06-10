@@ -18,6 +18,7 @@ export class EditProfilComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: FileUpload;
   progress: { percentage: number } = { percentage: 0 };
+
   constructor(public user: UserService, private fb:FormBuilder,private db:AngularFireDatabase,public auth:AngularFireAuth) {
     this.regiForm= this.fb.group({
       'isim':[null,Validators.required],

@@ -5,6 +5,7 @@ import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstra
 import {AngularFireAuth} from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+declare let alertify:any;
 
 @Component({
   selector: 'app-petsitter-profil',
@@ -69,6 +70,7 @@ let gece=date2.diff(date1, 'days')
       email:this.afAuth.auth.currentUser.email
       
 })
+alertify.success("Rezervasyon isteğini başarılı!");
   }
   onDateSelection(){
     this.minD2 = this.model

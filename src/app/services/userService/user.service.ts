@@ -154,15 +154,17 @@ this.afAuth.auth.signOut();
   }
   }
   deleteMessage(user:firebase.User,key){
-    if(this.rolM=="petOwn"){
-      this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).remove();
-  }
-    else if(this.rolM=="Petsitters"){
-      this.db.object('/Petsitters/'+user.uid+'/Mesaj/'+ key).remove();
-  }
-    else{
-      this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).remove();
-  }
+    if(window.confirm("silmek istediğine emin misin?")){
+      if(this.rolM=="petOwn"){
+        this.db.object('/petOwn/'+user.uid+'/Mesaj/'+ key).remove();
+    }
+      else if(this.rolM=="Petsitters"){
+        this.db.object('/Petsitters/'+user.uid+'/Mesaj/'+ key).remove();
+    }
+      else{
+        this.db.object('/admin/'+user.uid+'/Mesaj/'+ key).remove();
+    }
+    }
   }
   canActivate():Observable<boolean>{
     return this.afAuth.authState.pipe(
